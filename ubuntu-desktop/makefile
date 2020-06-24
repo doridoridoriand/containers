@@ -11,5 +11,8 @@ run:
 tag-current-unixtime: Dockerfile
 	docker tag `docker images centos-lifeboat:latest --format "{{.ID}}"` centos-lifeboat:`date +%s`
 
+install: /pathj/to/binary
+	mv /path/to/binary /usr/local/bin/binary
+
 release:
 	bash release.sh
