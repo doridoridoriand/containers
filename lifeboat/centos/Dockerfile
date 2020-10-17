@@ -40,4 +40,8 @@ RUN cd /tmp && wget http://download.redis.io/redis-stable.tar.gz \
       && cp src/redis-cli /usr/local/bin/ \
       && chmod 755 /usr/local/bin/redis-cli
 
+RUN wget https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.2.tar.gz && tar -zxvf ruby-2.7.2.tar.gz
+RUN cd ruby-2.7.2 && ./configure && make && make install
+RUN dnf -y install ruby-devel
+
 RUN dnf clean all
