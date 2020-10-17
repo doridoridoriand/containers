@@ -3,6 +3,12 @@ FROM centos:8
 RUN dnf -y update && dnf -y groupinstall "Development Tools"
 
 RUN dnf -y install wget \
+    openssl \
+    openssl-devel \
+    readline \
+    readline-devel \
+    zlib \
+    zlib-devel \
     sed \
     net-tools \
     traceroute \
