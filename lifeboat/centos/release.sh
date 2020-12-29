@@ -1,5 +1,12 @@
 #!/bin/bash
 
+docker_ps_result=`docker ps 2>&1 > /dev/null`;
+
+if [[ $docker_ps_result == *running?* ]]; then
+  echo 'ERROR: docker engine not running. Build failed.' >&2;
+  exit 1;
+fi
+
 unixtime=`date +%s`;
 
 docker tag `docker images centos-lifeboat:latest --format "{{.ID}}"` doridoridoriand/lifeboat:centos-latest;
