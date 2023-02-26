@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:lunar
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Tokyo
