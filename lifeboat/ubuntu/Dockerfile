@@ -1,11 +1,11 @@
-FROM ubuntu:focal
+FROM ubuntu:lunar
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Tokyo
 
-RUN apt-get -y update && apt-get -y upgrade && apt-get -y install build-essential && apt-get -y install tzdata
+RUN apt update && apt upgrade && apt -y install build-essential && apt -y install tzdata
 
-RUN apt-get -y install wget \
+RUN apt -y install wget \
     sed \
     net-tools \
     traceroute \
