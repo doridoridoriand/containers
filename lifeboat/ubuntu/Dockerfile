@@ -25,4 +25,4 @@ RUN apt -y install wget \
     htop \
     postgresql \
     mysql-client \
-    redis
+    redis \
