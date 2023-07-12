@@ -26,3 +26,5 @@ RUN apt -y install wget \
     postgresql \
     mysql-client \
     redis \
+    ruby \
+    golang-go
