@@ -1,8 +1,8 @@
 SHELL=/bin/bash
 
 build: Dockerfile
-	wget http://us.mirrors.quenda.co/apache//jmeter/binaries/apache-jmeter-5.3.tgz
-	tar zxvf apache-jmeter-5.3.tgz
+	wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.6.2.tgz
+	tar zxvf apache-jmeter-5.6.2.tgz
 	docker build -t jmeter-standalone:latest .
 
 tag-current-unixtime: Dockerfile
