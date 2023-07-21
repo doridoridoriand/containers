@@ -8,7 +8,7 @@ build: Dockerfile
 buildx: Dockerfile
 	docker buildx create --name lifeboat-builder
 	docker buildx use lifeboat-builder
-	docker buildx build --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le -t ubuntu-lifeboat:latest .
+	docker buildx build --load --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le -t ubuntu-lifeboat-multi-arch:latest .
 	docker buildx rm lifeboat-builder
 
 tag-current-unixtime: Dockerfile
@@ -16,3 +16,6 @@ tag-current-unixtime: Dockerfile
 
 release:
 	bash release.sh
+
+release-x:
+	bash release.multi-arch.sh
