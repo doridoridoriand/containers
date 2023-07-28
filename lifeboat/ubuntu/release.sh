@@ -9,18 +9,18 @@ fi
 
 unixtime=`date +%s`;
 
-docker tag `docker images ubuntu-lifeboat:latest --format "{{.ID}}"` doridoridoriand/lifeboat:ubuntu-latest;
-docker tag `docker images ubuntu-lifeboat:latest --format "{{.ID}}"` doridoridoriand/lifeboat:ubuntu-$unixtime;
+docker tag `docker images ubuntu-lifeboat:latest --format "{{.ID}}"` doridoridoriand/lifeboat-ubuntu:latest;
+docker tag `docker images ubuntu-lifeboat:latest --format "{{.ID}}"` doridoridoriand/lifeboat-ubuntu:$unixtime;
 
 docker login;
 
-docker push doridoridoriand/lifeboat:ubuntu-latest;
-docker push doridoridoriand/lifeboat:ubuntu-$unixtime;
+docker push doridoridoriand/lifeboat-ubuntu:latest;
+docker push doridoridoriand/lifeboat-ubuntu:$unixtime;
 
-docker tag `docker images ubuntu-lifeboat:latest --format "{{.ID}}"` docker.pkg.github.com/doridoridoriand/containers/lifeboat:ubuntu-latest;
-docker tag `docker images ubuntu-lifeboat:latest --format "{{.ID}}"` docker.pkg.github.com/doridoridoriand/containers/lifeboat:ubuntu-$unixtime;
+docker tag `docker images ubuntu-lifeboat:latest --format "{{.ID}}"` ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:latest;
+docker tag `docker images ubuntu-lifeboat:latest --format "{{.ID}}"` ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:$unixtime;
 
-cat ~/GH_TOKEN.txt | docker login docker.pkg.github.com -u doridoridoriand --password-stdin;
+cat ~/GH_TOKEN.txt | docker login ghcr.io -u doridoridoriand --password-stdin;
 
-docker push docker.pkg.github.com/doridoridoriand/containers/lifeboat:ubuntu-latest;
-docker push docker.pkg.github.com/doridoridoriand/containers/lifeboat:ubuntu-$unixtime;
+docker push ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:latest;
+docker push ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:$unixtime;

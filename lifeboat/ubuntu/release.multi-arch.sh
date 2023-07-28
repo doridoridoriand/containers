@@ -9,22 +9,14 @@ fi
 
 unixtime=`date +%s`;
 
-docker buildx create --name lifeboat-builder
-docker buildx use lifeboat-builder
-docker buildx build --load --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le -t ubuntu-lifeboat-multi-arch:latest .
+sudo docker buildx rm lifeboat-builder
 
-docker tag `docker images ubuntu-lifeboat-multi-arch:latest --format "{{.ID}}"` doridoridoriand/lifeboat:ubuntu-multi-arch-latest;
-docker tag `docker images ubuntu-lifeboat-multi-arch:latest --format "{{.ID}}"` doridoridoriand/lifeboat:ubuntu-multi-arch-$unixtime;
+sudo docker login;
+cat ~/GH_TOKEN.txt | sudo docker login ghcr.io -u doridoridoriand --password-stdin;
+sudo docker buildx create --name lifeboat-builder
+sudo docker buildx use lifeboat-builder
+sudo docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/lifeboat-ubuntu:latest -f Dockerfile
+sudo docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/lifeboat-ubuntu:$unixtime -f Dockerfile
+sudo docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:latest -f Dockerfile
+sudo docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:$unixtime -f Dockerfile
 
-docker login;
-
-docker push doridoridoriand/lifeboat:ubuntu-multi-arch-latest;
-docker push doridoridoriand/lifeboat:ubuntu-multi-arch-$unixtime;
-
-docker tag `docker images ubuntu-lifeboat-multi-arch:latest --format "{{.ID}}"` docker.pkg.github.com/doridoridoriand/containers/lifeboat:ubuntu-multi-arch-latest;
-docker tag `docker images ubuntu-lifeboat-multi-arch:latest --format "{{.ID}}"` docker.pkg.github.com/doridoridoriand/containers/lifeboat:ubuntu-multi-arch-$unixtime;
-
-cat ~/GH_TOKEN.txt | docker login docker.pkg.github.com -u doridoridoriand --password-stdin;
-
-docker push docker.pkg.github.com/doridoridoriand/containers/lifeboat:ubuntu-multi-arch-latest;
-docker push docker.pkg.github.com/doridoridoriand/containers/lifeboat:ubuntu-multi-arch-$unixtime;
