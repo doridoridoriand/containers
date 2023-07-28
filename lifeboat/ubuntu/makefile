@@ -18,5 +18,5 @@ tag-current-unixtime: Dockerfile
 release:
 	bash release.sh
 
-release-x:
+releasex:
 	bash release.multi-arch.sh
