@@ -25,6 +25,8 @@ RUN apt -y install wget \
     tmux \
     jq \
     htop \
+    curl \
+    bind9-dnsutils \
     postgresql \
     mysql-client \
     redis \

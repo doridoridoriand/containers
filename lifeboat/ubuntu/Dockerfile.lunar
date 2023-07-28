@@ -25,8 +25,12 @@ RUN apt -y install wget \
     tmux \
     jq \
     htop \
+    curl \
+    bind9-dnsutils \
     postgresql \
     mysql-client \
     redis \
     ruby \
     golang-go
+
+RUN curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
