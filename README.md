@@ -1,5 +1,6 @@
 # My docker containers
-Container images are available on DockerHub and GitHub Packages.
+This is the system container for operating systems and tools. It is intended to be as easy to use as a regular VM.
+Container images are available on GitHub Packages and Docker Hub.
 
 ## Containers
 - [Ubuntu system container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu)
@@ -10,5 +11,5 @@ Container images are available on DockerHub and GitHub Packages.
 - [Apache JMeter container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Fjmeter-standalone/109839188?tag=latest)
 
 ## Registries
-- [Docker Hub](https://hub.docker.com/u/doridoridoriand)
 - [GitHub Packages](https://github.com/doridoridoriand/containers/packages)
+- [Docker Hub](https://hub.docker.com/u/doridoridoriand)
