@@ -29,4 +29,5 @@ RUN apt -y install wget \
     mysql-client \
     redis \
     ruby \
-    golang-go
+    golang-go \
+    cowsay
