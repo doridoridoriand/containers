@@ -2,8 +2,8 @@
 
 unixtime=`date +%s`;
 
-docker tag `docker images ubuntu-desktop:latest --format "{{.ID}}"` doridoridoriand/lifeboat:centos-latest;
-docker tag `docker images ubuntu-desktop:latest --format "{{.ID}}"` doridoridoriand/lifeboat:centos-$unixtime;
+docker tag `docker images ubuntu-desktop:latest --format "{{.ID}}"` doridoridoriand/ubuntu-desktop:latest;
+docker tag `docker images ubuntu-desktop:latest --format "{{.ID}}"` doridoridoriand/ubuntu-desktop:$unixtime;
 docker login;
-docker push doridoridoriand/lifeboat:centos-latest;
-docker push doridoridoriand/lifeboat:centos-$unixtime;
+docker push doridoridoriand/ubuntu-desktop:latest
+docker push doridoridoriand/ubuntu-desktop:$unixtime
