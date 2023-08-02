@@ -3,11 +3,17 @@ This is the system container for operating systems and tools. It is intended to 
 Container images are available on GitHub Packages and Docker Hub.
 
 ## Containers
-- [Ubuntu system container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu)
-- - [Lunar](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/113901629?tag=lunar-latest)
-  - [Jammy](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/113957330?tag=jammy-latest)
-  - [Focal](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/113957214?tag=focal-latest)
-- [Almalinux system container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat/109807160?tag=almalinux-latest)
+- Ubuntu system container
+  - Lunar
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/113901629?tag=lunar-latest)
+    - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/lunar-latest/images/sha256-1d90fc754ed4cdc622fe6c0757a16461e9a1ef004bfb97761e5d93190762d5ae?context=repo)
+  - Jammy
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/113957330?tag=jammy-latest)
+    - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/jammy-latest/images/sha256-ac1de3ecc9bcba7a63db51be273ab4aab0f5c1b476d123bd08401e0bb999b6f2?context=repo)
+  - Focal
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/113957214?tag=focal-latest)
+    - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/focal-latest/images/sha256-0923cfb8b7f98b4a8e23823b0a43dd396c0b029ec07d0a51e42920bae6930528?context=repo)
+- [Almalinux system container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-almalinux)
 - [Apache JMeter container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Fjmeter-standalone/109839188?tag=latest)
 
 ## Registries
