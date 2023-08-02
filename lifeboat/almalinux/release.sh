@@ -9,18 +9,18 @@ fi
 
 unixtime=`date +%s`;
 
-docker tag `docker images almalinux-lifeboat:latest --format "{{.ID}}"` doridoridoriand/lifeboat:almalinux-latest;
-docker tag `docker images almalinux-lifeboat:latest --format "{{.ID}}"` doridoridoriand/lifeboat:almalinux-$unixtime;
+docker tag `docker images almalinux-lifeboat:latest --format "{{.ID}}"` doridoridoriand/lifeboat-almalinux:latest;
+docker tag `docker images almalinux-lifeboat:latest --format "{{.ID}}"` doridoridoriand/lifeboat-almalinux:8.8-$unixtime;
 
 docker login;
 
-docker push doridoridoriand/lifeboat:almalinux-latest;
-docker push doridoridoriand/lifeboat:almalinux-$unixtime;
+docker push doridoridoriand/lifeboat-almalinux:latest;
+docker push doridoridoriand/lifeboat-almalinux:8.8-$unixtime;
 
-docker tag `docker images almalinux-lifeboat:latest --format "{{.ID}}"` docker.pkg.github.com/doridoridoriand/containers/lifeboat:almalinux-latest;
-docker tag `docker images almalinux-lifeboat:latest --format "{{.ID}}"` docker.pkg.github.com/doridoridoriand/containers/lifeboat:almalinux-$unixtime;
+docker tag `docker images almalinux-lifeboat:latest --format "{{.ID}}"` ghcr.io/doridoridoriand/containers/lifeboat-almalinux:latest;
+docker tag `docker images almalinux-lifeboat:latest --format "{{.ID}}"` ghcr.io/doridoridoriand/containers/lifeboat-almalinux:8.8-$unixtime;
 
 cat ~/GH_TOKEN.txt | docker login docker.pkg.github.com -u doridoridoriand --password-stdin;
 
-docker push docker.pkg.github.com/doridoridoriand/containers/lifeboat:almalinux-latest;
-docker push docker.pkg.github.com/doridoridoriand/containers/lifeboat:almalinux-$unixtime;
+docker push ghcr.io/doridoridoriand/containers/lifeboat-almalinux:latest;
+docker push ghcr.io/doridoridoriand/containers/lifeboat-almalinux:8.8-$unixtime;
