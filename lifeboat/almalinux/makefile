@@ -11,3 +11,9 @@ tag-current-unixtime: Dockerfile
 
 release:
 	bash release.sh
+
+releasex:
+	bash release.multi-arch.sh
+
+buildx-clean:
+	docker buildx rm lifeboat-builder
