@@ -14,7 +14,7 @@ build-all:
 buildx: Dockerfile
 	docker buildx create --name lifeboat-builder
 	docker buildx use lifeboat-builder
-	docker buildx build --output=local --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/lifeboat-ubuntu:latest .
+	docker buildx build --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/lifeboat-ubuntu:latest .
 	docker buildx rm lifeboat-builder
 
 tag-current-unixtime: Dockerfile
