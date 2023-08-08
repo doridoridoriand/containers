@@ -23,6 +23,7 @@ RUN apt -y install wget \
     tmux \
     jq \
     htop \
+    btop \
     curl \
     bind9-dnsutils \
     postgresql \
