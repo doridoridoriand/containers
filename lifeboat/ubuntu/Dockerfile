@@ -1,1 +1,36 @@
-Dockerfile.lunar
+FROM ubuntu:lunar
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Tokyo
+
+RUN apt update && apt -y upgrade && apt -y install build-essential && apt -y install tzdata
+
+RUN apt -y install wget \
+    sed \
+    net-tools \
+    traceroute \
+    lsof \
+    strace \
+    man \
+    tree \
+    sysstat \
+    dstat \
+    mlocate \
+    vim \
+    zsh \
+    tcpdump \
+    git \
+    tmux \
+    jq \
+    htop \
+    btop \
+    curl \
+    bind9-dnsutils \
+    postgresql \
+    mysql-client \
+    redis \
+    ruby \
+    golang-go \
+    cowsay
+
+RUN curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
