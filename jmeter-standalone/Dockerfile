@@ -1,4 +1,4 @@
-FROM openjdk:14
+FROM openjdk:17
 
 COPY apache-jmeter-5.6.2 /apache-jmeter-5.6.2
 
