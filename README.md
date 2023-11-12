@@ -13,8 +13,8 @@ Container images are available on GitHub Packages and Docker Hub.
   - Focal
     - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/139823370?tag=focal-latest)
     - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/focal-latest/images/sha256-0923cfb8b7f98b4a8e23823b0a43dd396c0b029ec07d0a51e42920bae6930528?context=repo)
-- [Almalinux system container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-almalinux)
-- [Apache JMeter container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Fjmeter-standalone/143931614?tag=latest)
+- [Almalinux system container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-almalinux) (Available on GHCR only)
+- [Apache JMeter container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Fjmeter-standalone/143931614?tag=latest) (Available on GHCR only)
 
 ## Registries
 - [GitHub Packages](https://github.com/doridoridoriand/containers/packages)
