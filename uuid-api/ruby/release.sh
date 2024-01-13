@@ -12,7 +12,8 @@ unixtime=`date +%s`;
 docker buildx rm uuid-api-ruby-builder
 
 docker login;
-cat $GH_TOKEN | docker login ghcr.io -u doridoridoriand --password-stdin;
+echo $GH_TOKEN | docker login ghcr.io -u doridoridoriand --password-stdin;
+
 docker buildx create --name uuid-api-ruby-builder
 docker buildx use uuid-api-ruby-builder
 
