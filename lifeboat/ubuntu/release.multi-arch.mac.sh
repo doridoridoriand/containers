@@ -46,3 +46,5 @@ docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/
 docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:lunar-$unixtime -f Dockerfile.lunar .
 docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:lunar-latest -f Dockerfile.lunar .
 docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:latest -f Dockerfile.lunar .
+
+docker buildx rm lifeboat-builder
