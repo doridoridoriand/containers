@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker_ps_result=`docker ps 2>&1 > /dev/null`;
+docker_ps_result=`docker ps > /dev/null 2>&1`;
 
 if [[ $docker_ps_result == *running?* ]]; then
   echo "ERROR: docker engine not running. Build failed." >&2;
@@ -12,7 +12,7 @@ unixtime=`date +%s`;
 docker buildx rm uuid-api-ruby-builder
 
 docker login;
-cat ~/GH_TOKEN.txt | docker login ghcr.io -u doridoridoriand --password-stdin;
+cat $GH_TOKEN | docker login ghcr.io -u doridoridoriand --password-stdin;
 docker buildx create --name uuid-api-ruby-builder
 docker buildx use uuid-api-ruby-builder
 
