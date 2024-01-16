@@ -19,8 +19,7 @@ RUN apt-get -y install wget \
     tcpdump \
     git \
     tmux \
-    jq
-
-RUN apt-get -y install ubuntu-desktop
+    jq \
+    ubuntu-desktop
 
 CMD /bin/bash
