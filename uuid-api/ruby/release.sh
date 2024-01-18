@@ -54,7 +54,7 @@ build_with_tag() {
     BUILD_SUCCESS=false
   fi
   if [ "$BUILD_SUCCESS" = false ]; then
-    echo "ERROR: Docker build failed for ghcr.io/doridoridoriand/containers//uuid-api-ruby:$1" >&2;
+    echo "ERROR: Docker build failed for ghcr.io/doridoridoriand/containers/uuid-api-ruby:$1" >&2;
     exit 1;
   fi
 
