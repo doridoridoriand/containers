@@ -4,7 +4,7 @@ TAG_NAME = 0.0.1
 
 .PHONY: test-build
 test-build:
-	docker build -t uuid-api-ruby:latest -f Dockerfile .
+	docker build --no-cache -t uuid-api-ruby:latest -f Dockerfile .
 
 .PHONY: release
 release:

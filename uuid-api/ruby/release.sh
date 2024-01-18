@@ -5,7 +5,7 @@ DOCKER_PS_RESULT=`docker ps > /dev/null 2>&1`;
 
 # タグを置換する関数
 replace_tag() {
-    sed -i "s/FROM ruby:[0-9.]\+/FROM ruby:$1/g" Dockerfile
+    sed -i "" "s/FROM ruby:3.3.0/FROM ruby:$1/g" Dockerfile
 }
 
 # タグを置換してビルドする関数
@@ -18,6 +18,7 @@ build_with_tag() {
   fi
 
   docker buildx rm uuid-api-ruby-builder
+
   GH_TOKEN=`cat ~/GH_TOKEN.txt`
   docker login;
   if ! echo $GH_TOKEN | docker login ghcr.io -u doridoridoriand --password-stdin; then
@@ -70,7 +71,7 @@ build_with_tag() {
 }
 
 # タグのリスト
-tags=("2.4.2" "2.7.8" "3.2.2" "3.3.0")
+tags=("2.6.3" "2.7.8" "3.2.2" "3.3.0")
 
 # タグごとにビルドを実行
 for tag in "${tags[@]}"
