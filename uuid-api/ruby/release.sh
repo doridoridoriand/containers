@@ -49,20 +49,20 @@ build_with_tag() {
 
   # GHCR
   BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/doridoridoriand/uuid-api-ruby:$1 -f Dockerfile .; then
+  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/uuid-api-ruby:$1 -f Dockerfile .; then
     BUILD_SUCCESS=false
   fi
   if [ "$BUILD_SUCCESS" = false ]; then
-    echo "ERROR: Docker build failed for ghcr.io/doridoridoriand/containers/doridoridoriand/uuid-api-ruby:$1" >&2;
+    echo "ERROR: Docker build failed for ghcr.io/doridoridoriand/containers//uuid-api-ruby:$1" >&2;
     exit 1;
   fi
 
   BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/doridoridoriand/uuid-api-ruby:latest -f Dockerfile .; then
+  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/uuid-api-ruby:latest -f Dockerfile .; then
     BUILD_SUCCESS=false
   fi
   if [ "$BUILD_SUCCESS" = false ]; then
-    echo "ERROR: Docker build failed for ghcr.io/doridoridoriand/containers/doridoridoriand/uuid-api-ruby:latest" >&2;
+    echo "ERROR: Docker build failed for ghcr.io/doridoridoriand/containers/uuid-api-ruby:latest" >&2;
     exit 1;
   fi
 
