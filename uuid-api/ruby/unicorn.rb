@@ -5,7 +5,7 @@ require 'securerandom'
 require 'cuba'
 require 'cuba/safe'
 
-worker_processes 16
+worker_processes Etc.nprocessors
 working_directory __dir__
 
 timeout 10
