@@ -27,6 +27,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt -y install wget \
     postgresql \
     mysql-client \
     redis \
-    ruby \
     golang-go \
     cowsay
+
+RUN apt-get update && apt-get -y upgrade && apt-get -y install build-essential gcc g++ make libtool texinfo dpkg-dev pkg-config && \
+    apt-get -y install libssl-dev zlib1g-dev libyaml-0-2 libyaml-dev && \
+    cd /tmp && rm -rf ruby && wget "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.2.tar.gz" && tar -zxvf ruby-3.2.2.tar.gz && \
+    cd ruby-3.2.2 && ./configure && make install
