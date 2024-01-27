@@ -2,10 +2,10 @@ SHELL=/bin/bash
 
 TAG_NAME = 0.0.1
 
-build: Dockerfile
+test-build: Dockerfile
 	docker build --no-cache -t ubuntu-lifeboat:latest .
 
-build-all:
+test-build-all:
 	docker build --no-cache -t ubuntu-lifeboat:lunar-latest -f Dockerfile.lunar .
 	docker build --no-cache -t ubuntu-lifeboat:jammy-latest -f Dockerfile.jammy .
 	docker build --no-cache -t ubuntu-lifeboat:focal-latest -f Dockerfile.focal .
