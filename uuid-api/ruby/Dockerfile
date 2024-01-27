@@ -1,4 +1,4 @@
-FROM ruby:3.3.0
+FROM ruby:latest
 
 ENV RUBYOPT -EUTF-8
 

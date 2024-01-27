@@ -1,12 +1,9 @@
 #!/bin/bash
 DOCKER_PS_RESULT=`docker ps > /dev/null 2>&1`;
 
-#!/bin/bash
-
-# タグを置換する関数
-replace_tag() {
-    sed -i "" "s/FROM ruby:3.3.0/FROM ruby:$1/g" Dockerfile
-}
+docker buildx rm uuid-api-ruby-builder
+docker buildx create --name uuid-api-ruby-builder
+docker buildx use uuid-api-ruby-builder
 
 # タグを置換してビルドする関数
 build_with_tag() {
@@ -17,8 +14,6 @@ build_with_tag() {
     exit 1;
   fi
 
-  docker buildx rm uuid-api-ruby-builder
-
   GH_TOKEN=`cat ~/GH_TOKEN.txt`
   docker login;
   if ! echo $GH_TOKEN | docker login ghcr.io -u doridoridoriand --password-stdin; then
@@ -26,12 +21,9 @@ build_with_tag() {
     exit 1;
   fi
 
-  docker buildx create --name uuid-api-ruby-builder
-  docker buildx use uuid-api-ruby-builder
-
   # Docker Hub
   BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/uuid-api-ruby:$1 -f Dockerfile .; then
+  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/uuid-api-ruby:$1 -f Dockerfile.$1 .; then
     BUILD_SUCCESS=false
   fi
   if [ "$BUILD_SUCCESS" = false ]; then
@@ -40,7 +32,7 @@ build_with_tag() {
   fi
 
   BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/uuid-api-ruby:latest -f Dockerfile .; then
+  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/uuid-api-ruby:latest -f Dockerfile.$1 .; then
     BUILD_SUCCESS=false
   fi
   if [ "$BUILD_SUCCESS" = false ]; then
@@ -50,7 +42,7 @@ build_with_tag() {
 
   # GHCR
   BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/uuid-api-ruby:$1 -f Dockerfile .; then
+  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/uuid-api-ruby:$1 -f Dockerfile.$1 .; then
     BUILD_SUCCESS=false
   fi
   if [ "$BUILD_SUCCESS" = false ]; then
@@ -59,7 +51,7 @@ build_with_tag() {
   fi
 
   BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/uuid-api-ruby:latest -f Dockerfile .; then
+  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/uuid-api-ruby:latest -f Dockerfile.$1 .; then
     BUILD_SUCCESS=false
   fi
   if [ "$BUILD_SUCCESS" = false ]; then
@@ -67,14 +59,24 @@ build_with_tag() {
     exit 1;
   fi
 
-  docker buildx rm uuid-api-ruby-builder
+  rm Dockerfile.$1
+}
+
+# タグを置換する関数
+replace_tag() {
+    if ! sed "s/ruby:latest/ruby:$1/g" Dockerfile > Dockerfile.$1; then
+        echo "ERROR: Failed to replace Ruby version tag in Dockerfile." >&2;
+        exit 1;
+    fi
 }
 
 # タグのリスト
-tags=("2.6.3" "2.7.8" "3.2.2" "3.3.0")
+tags=("2.7.8" "3.2.2" "3.3.0")
 
 # タグごとにビルドを実行
 for tag in "${tags[@]}"
 do
     build_with_tag $tag
 done
+
+docker buildx rm uuid-api-ruby-builder
