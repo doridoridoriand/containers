@@ -64,7 +64,10 @@ build_with_tag() {
 
 # タグを置換する関数
 replace_tag() {
-    sed "s/ruby:latest/ruby:$1/g" Dockerfile > Dockerfile.$1
+    if ! sed "s/ruby:latest/ruby:$1/g" Dockerfile > Dockerfile.$1; then
+        echo "ERROR: Failed to replace Ruby version tag in Dockerfile." >&2;
+        exit 1;
+    fi
 }
 
 # タグのリスト
