@@ -7,6 +7,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt -y upgrade && DEBIAN_FRONTE
 RUN DEBIAN_FRONTEND=noninteractive apt -y install wget \
     sed \
     net-tools \
+    iputils-ping \
     traceroute \
     lsof \
     strace \
