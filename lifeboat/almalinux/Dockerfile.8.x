@@ -1,4 +1,4 @@
-FROM almalinux:9.2
+FROM almalinux:8.9
 
 RUN dnf -y update && dnf -y groupinstall "Development Tools"
 
@@ -17,7 +17,7 @@ RUN dnf -y install wget \
     bind-utils \
     man \
     tree \
-    s-nail \
+    mailx \
     sysstat \
     dstat \
     mlocate \
