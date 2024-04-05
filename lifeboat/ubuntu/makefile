@@ -14,7 +14,7 @@ tag-current-unixtime: Dockerfile
 	docker tag `docker images ubuntu-lifeboat:latest --format "{{.ID}}"` ubuntu-lifeboat:`date +%s`
 
 release:
-	bash release.multi-arch.sh
+	bash release.multi-arch.mac.sh
 
 buildx-clean:
 	docker buildx rm lifeboat-builder
