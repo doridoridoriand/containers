@@ -3,8 +3,8 @@ SHELL=/bin/bash
 TAG_NAME = 0.0.1
 
 test-build:
-	docker build -t almalinux-lifeboat:8.8 -f Dockerfile.8.x .
-	docker build -t almalinux-lifeboat:9.2 -f Dockerfile.9.x .
+	docker build -t almalinux-lifeboat:8.9 -f Dockerfile.8.x .
+	docker build -t almalinux-lifeboat:9.3 -f Dockerfile.9.x .
 
 test-buildx:
 	docker buildx create --name lifeboat-builder
