@@ -12,7 +12,7 @@ unixtime=`date +%s`;
 docker buildx rm lifeboat-builder
 
 docker login;
-cat ~/GH_TOKEN.txt |  docker login ghcr.io -u doridoridoriand --password-stdin;
+docker login ghcr.io -u doridoridoriand --password-stdin < ~/GH_TOKEN.txt;
 docker buildx create --name lifeboat-builder
 docker buildx use lifeboat-builder
 
