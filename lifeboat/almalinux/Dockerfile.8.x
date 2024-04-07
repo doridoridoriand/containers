@@ -1,6 +1,6 @@
 FROM almalinux:8.9
 
-RUN dnf -y update && dnf -y groupinstall "Development Tools"
+RUN dnf -y distro-sync && dnf -y update && dnf -y groupinstall "Development Tools"
 
 RUN dnf -y install wget \
     openssl \
@@ -9,6 +9,7 @@ RUN dnf -y install wget \
     readline-devel \
     zlib \
     zlib-devel \
+    gcc \
     sed \
     net-tools \
     traceroute \
@@ -33,9 +34,10 @@ RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
 
 RUN dnf -y install mysql postgresql
 
-RUN cd /tmp && wget http://download.redis.io/redis-stable.tar.gz \
+RUN wget http://download.redis.io/redis-stable.tar.gz \
       && tar xvzf redis-stable.tar.gz \
       && cd redis-stable \
+      && make distclean \
       && make \
       && cp src/redis-cli /usr/local/bin/ \
       && chmod 755 /usr/local/bin/redis-cli
