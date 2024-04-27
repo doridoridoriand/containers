@@ -20,8 +20,11 @@ spec:
           image: doridoridoriand/uuid-api:0.0.1
           resources:
             requests:
-              cpu: 1000m
-              memory: 1024Mi
+              cpu: '1'
+              memory: 1Gi
+            limits:
+              cpu: '2'
+              memory: 2Gi
           ports:
             - containerPort: 3000
           livenessProbe:
