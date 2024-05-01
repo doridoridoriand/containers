@@ -34,12 +34,12 @@ RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
 
 RUN dnf -y install mysql postgresql
 
-RUN wget http://download.redis.io/redis-stable.tar.gz \
-      && tar xvzf redis-stable.tar.gz \
-      && cd redis-stable \
-      && make distclean \
-      && make \
-      && cp src/redis-cli /usr/local/bin/ \
-      && chmod 755 /usr/local/bin/redis-cli
+#RUN wget http://download.redis.io/redis-stable.tar.gz \
+#      && tar xvzf redis-stable.tar.gz \
+#      && cd redis-stable \
+#      && make distclean \
+#      && make \
+#      && cp src/redis-cli /usr/local/bin/ \
+#      && chmod 755 /usr/local/bin/redis-cli
 
 RUN dnf clean all
