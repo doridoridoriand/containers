@@ -23,7 +23,7 @@ build_with_tag() {
 
   # Docker Hub
   BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/uuid-api-ruby:$1 -f Dockerfile.$1 .; then
+  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/uuid-api-ruby:$1 --tag doridoridoriand/uuid-api-ruby:latest -f Dockerfile.$1 .; then
     BUILD_SUCCESS=false
   fi
   if [ "$BUILD_SUCCESS" = false ]; then
@@ -31,31 +31,13 @@ build_with_tag() {
     exit 1;
   fi
 
-  BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/uuid-api-ruby:latest -f Dockerfile.$1 .; then
-    BUILD_SUCCESS=false
-  fi
-  if [ "$BUILD_SUCCESS" = false ]; then
-    echo "ERROR: Docker build failed for doridoridoriand/uuid-api-ruby:latest" >&2;
-    exit 1;
-  fi
-
   # GHCR
   BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/uuid-api-ruby:$1 -f Dockerfile.$1 .; then
+  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/uuid-api-ruby:$1 --tag ghcr.io/doridoridoriand/containers/uuid-api-ruby:latest -f Dockerfile.$1 .; then
     BUILD_SUCCESS=false
   fi
   if [ "$BUILD_SUCCESS" = false ]; then
     echo "ERROR: Docker build failed for ghcr.io/doridoridoriand/containers/uuid-api-ruby:$1" >&2;
-    exit 1;
-  fi
-
-  BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/uuid-api-ruby:latest -f Dockerfile.$1 .; then
-    BUILD_SUCCESS=false
-  fi
-  if [ "$BUILD_SUCCESS" = false ]; then
-    echo "ERROR: Docker build failed for ghcr.io/doridoridoriand/containers/uuid-api-ruby:latest" >&2;
     exit 1;
   fi
 
@@ -71,7 +53,7 @@ replace_tag() {
 }
 
 # タグのリスト
-tags=("2.7.8" "3.2.2" "3.3.0")
+tags=("3.2.2" "3.3.0" "3.3.4")
 
 # タグごとにビルドを実行
 for tag in "${tags[@]}"
