@@ -1,9 +1,10 @@
 #!/bin/bash
 DOCKER_PS_RESULT=`docker ps > /dev/null 2>&1`;
+BUIDX_NAME=uuid-api-ruby-builder
 
-docker buildx rm uuid-api-ruby-builder
-docker buildx create --name uuid-api-ruby-builder
-docker buildx use uuid-api-ruby-builder
+docker buildx rm ${BUIDX_NAME}
+docker buildx create --name ${BUIDX_NAME}
+docker buildx use ${BUIDX_NAME}
 
 # タグを置換してビルドする関数
 build_with_tag() {
@@ -61,4 +62,4 @@ do
     build_with_tag $tag
 done
 
-docker buildx rm uuid-api-ruby-builder
+docker buildx rm ${BUIDX_NAME}
