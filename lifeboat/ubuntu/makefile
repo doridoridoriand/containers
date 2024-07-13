@@ -1,7 +1,5 @@
 SHELL=/bin/bash
 
-TAG_NAME = 0.0.1
-
 test-build: Dockerfile
 	docker build --no-cache -t ubuntu-lifeboat:latest .
 
