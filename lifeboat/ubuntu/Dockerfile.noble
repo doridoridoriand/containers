@@ -1,0 +1,38 @@
+FROM ubuntu:noble
+
+ENV TZ=Asia/Tokyo
+
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt -y upgrade && DEBIAN_FRONTEND=noninteractive apt -y install build-essential && DEBIAN_FRONTEND=noninteractive apt -y install tzdata
+
+RUN DEBIAN_FRONTEND=noninteractive apt -y install wget \
+    sed \
+    net-tools \
+    iputils-ping \
+    traceroute \
+    lsof \
+    strace \
+    man \
+    tree \
+    sysstat \
+    dstat \
+    mlocate \
+    vim \
+    zsh \
+    tcpdump \
+    git \
+    tmux \
+    jq \
+    htop \
+    curl \
+    bind9-dnsutils \
+    postgresql \
+    mysql-client \
+    postgresql-client \
+    redis \
+    golang-go \
+    cowsay
+
+RUN apt-get update && apt-get -y upgrade && apt-get -y install build-essential gcc g++ make libtool texinfo dpkg-dev pkg-config && \
+    apt-get -y install libssl-dev zlib1g-dev libyaml-0-2 libyaml-dev && \
+    cd /tmp && rm -rf ruby && wget "https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.2.tar.gz" && tar -zxvf ruby-3.2.2.tar.gz && \
+    cd ruby-3.2.2 && ./configure && make install
