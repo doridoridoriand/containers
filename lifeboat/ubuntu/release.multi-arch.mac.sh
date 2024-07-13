@@ -1,6 +1,7 @@
 #!/bin/bash
 
 DOCKER_PS_RESULT=`docker ps 2>&1 > /dev/null`;
+BUIDX_NAME=lifeboat-builder
 
 if [[ $DOCKER_PS_RESULT == *running?* ]]; then
   echo "ERROR: docker engine not running. Build failed." >&2;
@@ -9,12 +10,12 @@ fi
 
 unixtime=`date +%s`;
 
-docker buildx rm lifeboat-builder
+docker buildx rm ${BUIDX_NAME}
 
 docker login;
 cat ~/GH_TOKEN.txt |  docker login ghcr.io -u doridoridoriand --password-stdin;
-docker buildx create --name lifeboat-builder
-docker buildx use lifeboat-builder
+docker buildx create --name ${BUIDX_NAME}
+docker buildx use ${BUIDX_NAME}
 ##########################
 # focal
 ##########################
@@ -52,4 +53,4 @@ docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/
                                                                                         --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:lunar-latest \
                                                                                         --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:latest -f Dockerfile.lunar .
 
-docker buildx rm lifeboat-builder
+docker buildx rm ${BUIDX_NAME}
