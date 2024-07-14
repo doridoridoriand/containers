@@ -11,11 +11,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt -y install wget \
     traceroute \
     lsof \
     strace \
-    man \
+    man-db \
     tree \
     sysstat \
-    dstat \
-    mlocate \
+    plocate \
+    btop \
     vim \
     zsh \
     tcpdump \
