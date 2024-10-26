@@ -5,15 +5,18 @@ Container images are available on GitHub Packages and Docker Hub.
 
 ## Containers
 - Ubuntu system container
+  - Noble
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/295608419?tag=noble-latest)
+    - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/noble-latest/images/sha256-a52561ee78e3e4746a4e89e05ba16f7f2de9e273ccff9d5e227b5689924d692a)
   - Lunar
     - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/139828662?tag=lunar-latest)
-    - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/lunar-latest/images/sha256-1d90fc754ed4cdc622fe6c0757a16461e9a1ef004bfb97761e5d93190762d5ae?context=repo)
+    - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/lunar-latest/images/sha256-1d90fc754ed4cdc622fe6c0757a16461e9a1ef004bfb97761e5d93190762d5ae)
   - Jammy
-    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/139826172?tag=jammy-latest)
-    - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/jammy-latest/images/sha256-ac1de3ecc9bcba7a63db51be273ab4aab0f5c1b476d123bd08401e0bb999b6f2?context=repo)
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/295600485?tag=jammy-latest)
+    - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/jammy-latest/images/sha256-78bfd7e30ca4beb86ca11d4c6d0ce001876a2811e8207a19eef77072efa92836)
   - Focal
-    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/139823370?tag=focal-latest)
-    - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/focal-latest/images/sha256-0923cfb8b7f98b4a8e23823b0a43dd396c0b029ec07d0a51e42920bae6930528?context=repo)
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/295591548?tag=focal-latest)
+    - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/focal-latest/images/sha256-a359c545d6247ecbcf8055bd9e9226660bb2a992be127a247e4b7661ce30a3e2)
 - [Almalinux system container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-almalinux) (Available on only GHCR)
 - [Apache JMeter container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Fjmeter-standalone/143931614?tag=latest) (Available on only GHCR)
 

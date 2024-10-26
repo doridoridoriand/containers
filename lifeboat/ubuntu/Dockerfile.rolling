@@ -15,7 +15,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt -y install wget \
     tree \
     sysstat \
     dstat \
-    mlocate \
     vim \
     zsh \
     tcpdump \
