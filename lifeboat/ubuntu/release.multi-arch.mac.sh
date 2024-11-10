@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-DOCKER_PS_RESULT=`docker ps 2>&1 > /dev/null`;
-BUIDX_NAME=lifeboat-builder
+DOCKER_PS_RESULT=$(docker ps 2>/dev/null);
+BUILDX_NAME=lifeboat-builder
 
 if [[ $DOCKER_PS_RESULT == *running?* ]]; then
   echo "ERROR: docker engine not running. Build failed." >&2;
