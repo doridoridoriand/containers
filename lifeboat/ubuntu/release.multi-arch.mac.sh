@@ -8,14 +8,14 @@ if [[ $DOCKER_PS_RESULT == *running?* ]]; then
   exit 1;
 fi
 
-unixtime=`date +%s`;
+unixtime=$(date +%s);
 
-docker buildx rm ${BUIDX_NAME}
+docker buildx rm ${BUILDX_NAME}
 
 docker login;
 cat ~/GH_TOKEN.txt |  docker login ghcr.io -u doridoridoriand --password-stdin;
-docker buildx create --name ${BUIDX_NAME}
-docker buildx use ${BUIDX_NAME}
+docker buildx create --name ${BUILDX_NAME}
+docker buildx use ${BUILDX_NAME}
 ####################################################
 # focal
 ####################################################
@@ -64,4 +64,4 @@ docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/
 docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:rolling-$unixtime \
                                                                                         --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:rolling-latest -f Dockerfile.rolling .
 
-docker buildx rm ${BUIDX_NAME}
+docker buildx rm ${BUILDX_NAME}
