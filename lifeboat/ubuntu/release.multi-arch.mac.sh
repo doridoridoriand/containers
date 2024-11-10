@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 DOCKER_PS_RESULT=`docker ps 2>&1 > /dev/null`;
 BUIDX_NAME=lifeboat-builder

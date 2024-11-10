@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DOCKER_PS_RESULT=`docker ps 2>&1 > /dev/null`;
 
