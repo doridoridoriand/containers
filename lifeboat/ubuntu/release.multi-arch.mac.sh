@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+set -eu
+
 DOCKER_PS_RESULT=$(docker ps 2>/dev/null);
 BUILDX_NAME=lifeboat-builder
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 unixtime=`date +%s`;
 
 docker tag `docker images jmeter-standalone:latest --format "{{.ID}}"` ghcr.io/doridoridoriand/containers/jmeter-standalone:latest;
