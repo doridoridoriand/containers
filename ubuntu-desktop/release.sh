@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 unixtime=`date +%s`;
 
 docker tag `docker images ubuntu-desktop:latest --format "{{.ID}}"` doridoridoriand/ubuntu-desktop:latest;

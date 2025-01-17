@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 DOCKER_PS_RESULT=`docker ps 2>&1 > /dev/null`;
 
 if [[ $DOCKER_PS_RESULT == *running?* ]]; then
