@@ -2,9 +2,7 @@
 
 set -eu
 
-DOCKER_PS_RESULT=`docker ps 2>&1 > /dev/null`;
-
-if [[ $DOCKER_PS_RESULT == *running?* ]]; then
+if ! docker info > /dev/null 2>&1; then
   echo 'ERROR: docker engine not running. Build failed.' >&2;
   exit 1;
 fi
