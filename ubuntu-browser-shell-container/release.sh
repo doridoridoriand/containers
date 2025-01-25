@@ -31,5 +31,5 @@ fi
 
 echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${GITHUB_USER}" --password-stdin
 
-docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/doridoridoriand/containers/ubuntu-shell-container:jammy-$UNIXTIME \
-                                                              --tag ghcr.io/doridoridoriand/containers/ubuntu-shell-container:jammy-latest -f Dockerfile .
+docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/doridoridoriand/containers/ubuntu-shell-container:noble-$UNIXTIME \
+                                                              --tag ghcr.io/doridoridoriand/containers/ubuntu-shell-container:noble-latest -f Dockerfile .
