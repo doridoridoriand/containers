@@ -21,7 +21,6 @@ RUN apt-get update && \
 
 # Create non-root user
 RUN useradd -m -s /bin/bash shelluser
-USER shelluser
 WORKDIR /home/shelluser
 
 EXPOSE 7681
