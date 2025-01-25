@@ -1,4 +1,4 @@
-FROM doridoridoriand/lifeboat-ubuntu:noble-1735639823
+FROM doridoridoriand/lifeboat-ubuntu:jammy-1736125106
 
 # Pin ttyd version for security and reproducibility
 ARG TTYD_VERSION=1.7.7
@@ -21,7 +21,6 @@ RUN apt-get update && \
 
 # Create non-root user
 RUN useradd -m -s /bin/bash shelluser
-USER shelluser
 WORKDIR /home/shelluser
 
 EXPOSE 7681
