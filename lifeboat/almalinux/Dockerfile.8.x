@@ -1,4 +1,4 @@
-FROM almalinux:8.9
+FROM almalinux:8.10
 
 RUN dnf -y distro-sync && dnf -y update && dnf -y groupinstall "Development Tools"
 
