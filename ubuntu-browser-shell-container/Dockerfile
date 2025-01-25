@@ -1,7 +1,7 @@
 FROM doridoridoriand/lifeboat-ubuntu:noble-1735639823
 
 # Pin ttyd version for security and reproducibility
-ARG TTYD_VERSION=1.7.3
+ARG TTYD_VERSION=1.7.7
 
 RUN apt-get update && \
     apt-get install -y \
@@ -27,4 +27,4 @@ WORKDIR /home/shelluser
 EXPOSE 7681
 
 # Add any necessary restrictions to the shell
-CMD ["ttyd", "-p", "7681", "--writable", "bash", "-l"]
+CMD ["ttyd", "-p", "7681", "--writable", "bash", "-l", "-c", "echo 'Welcome to the shell. Type exit to leave.'"]
