@@ -2,9 +2,13 @@
 
 set -eu
 
-DOCKER_PS_RESULT=`docker ps > /dev/null 2>&1`;
+# Ensure Docker is running
+docker ps > /dev/null 2>&1 || { echo "Error: Docker is not running"; exit 1; }
+
+# Configuration
 BUILDX_NAME=browser-shell-container
-UNIXTIME=`date +%s`;
+UNIXTIME=$(date +%s)
+GITHUB_USER=${GITHUB_USER:-doridoridoriand}
 
 BUILDX_ALREADY_EXISTS=`docker buildx ls 2>&1 | grep ${BUILDX_NAME}` || true;
 
