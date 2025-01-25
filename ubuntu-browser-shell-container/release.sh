@@ -32,6 +32,9 @@ fi
 echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${GITHUB_USER}" --password-stdin
 
 docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/${GITHUB_USER}/containers/ubuntu-shell-container:noble-$UNIXTIME \
-                                                              --tag ghcr.io/${GITHUB_USER}/containers/ubuntu-shell-container:noble-latest -f Dockerfile .
+                                                              --tag ghcr.io/${GITHUB_USER}/containers/ubuntu-shell-container:noble-latest -f Dockerfile.noble .
+
+docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/${GITHUB_USER}/containers/ubuntu-shell-container:jammy-$UNIXTIME \
+                                                              --tag ghcr.io/${GITHUB_USER}/containers/ubuntu-shell-container:jammy-latest -f Dockerfile.jammy .
 
 echo "Release completed successfully"
