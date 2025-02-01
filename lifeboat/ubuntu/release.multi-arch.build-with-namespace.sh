@@ -12,6 +12,12 @@ fi
 
 unixtime=$(date +%s);
 
+BUILDX_ALREADY_EXISTS=`docker buildx ls 2>&1 | grep ${BUILDX_NAME}` || true;
+
+if [ -n "${BUILDX_ALREADY_EXISTS}" ]; then
+    docker buildx rm ${BUILDX_NAME}
+fi
+
 docker login;
 cat ~/GH_TOKEN.txt |  docker login ghcr.io -u doridoridoriand --password-stdin;
 docker buildx create --name ${BUILDX_NAME}
