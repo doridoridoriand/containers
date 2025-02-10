@@ -11,15 +11,19 @@ fi
 
 unixtime=`date +%s`;
 
-docker buildx rm lifeboat-builder
+BUILDX_ALREADY_EXISTS=$(docker buildx ls 2>&1 | grep ${BUILDX_NAME}) || true;
+
+if [ -n "${BUILDX_ALREADY_EXISTS}" ]; then
+    docker buildx rm ${BUILDX_NAME}
+fi
 
 docker login;
-docker login ghcr.io -u doridoridoriand --password-stdin < ~/GH_TOKEN.txt;
+cat ~/GH_TOKEN.txt | docker login ghcr.io -u doridoridoriand --password-stdin;
 docker buildx create --name lifeboat-builder
 docker buildx use lifeboat-builder
 
 ##########################
-# 8.8
+# 8.10
 ##########################
 ######### Docker Hub #########
 docker buildx build --push --platform=linux/arm64,linux/amd64 --tag doridoridoriand/lifeboat-almalinux:8.10-$unixtime \
@@ -29,7 +33,7 @@ docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/dori
                                                               --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:8.10-latest -f Dockerfile.8.x .
 
 ##########################
-# 9.2
+# 9.4
 ##########################
 ######### Docker Hub #########
 docker buildx build --push --platform=linux/arm64,linux/amd64 --tag doridoridoriand/lifeboat-almalinux:9.4-$unixtime \
