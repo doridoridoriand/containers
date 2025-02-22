@@ -14,7 +14,7 @@ tag-current-unixtime:
 
 .PHONY: release
 release:
-	bash release.multi-arch.mac.sh
+	bash release.multi-arch.sh
 
 .PHONY: buildx-clean
 buildx-clean:
