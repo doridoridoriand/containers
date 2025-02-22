@@ -6,7 +6,7 @@ DOCKER_PS_RESULT=$(docker ps 2>/dev/null);
 BUILDX_NAME=lifeboat-builder
 
 if [[ $DOCKER_PS_RESULT == *running?* ]]; then
-  echo "ERROR: docker engine not running. Build failed." >&2;
+  echo "ERROR: docker engine not running. Build failed.";
   exit 1;
 fi
 
