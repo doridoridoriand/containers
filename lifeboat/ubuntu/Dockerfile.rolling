@@ -28,10 +28,17 @@ RUN DEBIAN_FRONTEND=noninteractive apt -y install wget \
     mysql-client \
     postgresql-client \
     redis \
-    golang-go \
     cowsay
+
+ENV GO_VERSION=1.23.6
+ARG BUILDARCH
+RUN echo "BUILDARCH: $BUILDARCH" && \
+    echo "GO_VERSION: $GO_VERSION" && \
+    wget https://go.dev/dl/go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
+    tar -C /usr/local -xzf go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
+    rm go${GO_VERSION}.linux-${BUILDARCH}.tar.gz
 
 RUN apt-get update && apt-get -y upgrade && apt-get -y install build-essential gcc g++ make libtool texinfo dpkg-dev pkg-config && \
     apt-get -y install libssl-dev zlib1g-dev libyaml-0-2 libyaml-dev && \
-    cd /tmp && rm -rf ruby && wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.4.tar.gz" && tar -zxvf ruby-3.3.4.tar.gz && \
-    cd ruby-3.3.4 && ./configure && make install
+    cd /tmp && rm -rf ruby && wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.7.tar.gz" && tar -zxvf ruby-3.3.7.tar.gz && \
+    cd ruby-3.3.7 && ./configure && make install
