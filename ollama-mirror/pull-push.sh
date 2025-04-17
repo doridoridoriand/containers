@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 export NAMESPACE=ollama
 export IMAGE=ollama
