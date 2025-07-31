@@ -2,7 +2,7 @@
 
 set -eu
 
-N8N_VERSION=${N8N_VERSION:-1.89.2}
+N8N_VERSION=${N8N_VERSION:-1.90.0}
 
 # Ensure Docker is running
 docker ps > /dev/null 2>&1 || { echo "Error: Docker is not running"; exit 1; }
