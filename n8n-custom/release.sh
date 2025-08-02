@@ -2,7 +2,7 @@
 
 set -eu
 
-N8N_VERSION=${N8N_VERSION:-1.91.0}
+N8N_VERSION=${N8N_VERSION:-1.105.2}
 
 # Ensure Docker is running
 docker ps > /dev/null 2>&1 || { echo "Error: Docker is not running"; exit 1; }
@@ -30,7 +30,7 @@ if [ -z "${GITHUB_TOKEN:-}" ]; then
     fi
 fi
 
-echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${GITHUB_USER}" --password-stdin
+#echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${GITHUB_USER}" --password-stdin
 
 cat Dockerfile | sed "s/VERSION_PLACEHOLDER/${N8N_VERSION}/g" > Dockerfile.${N8N_VERSION}
 
