@@ -2,12 +2,11 @@
 
 set -eu
 
-DOCKER_PS_RESULT=$(docker ps 2>/dev/null);
 BUILDX_NAME=boring-primenumber-builder
 
-if [[ $DOCKER_PS_RESULT == *running?* ]]; then
-  echo "ERROR: docker engine not running. Build failed.";
-  exit 1;
+if ! docker info >/dev/null 2>&1; then
+  echo "ERROR: Docker engine not running or unreachable. Build failed." >&2
+  exit 1
 fi
 
 VERSION=0.0.2
