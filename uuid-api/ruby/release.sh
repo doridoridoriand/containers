@@ -24,7 +24,7 @@ build_with_tag() {
 
   # Docker Hub
   BUILD_SUCCESS=true
-  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/uuid-api-ruby:$1 --tag doridoridoriand/uuid-api-ruby:latest -f Dockerfile.$1 .; then
+  if ! docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/uuid-api-ruby:$1 --tag doridoridoriand/uuid-api-ruby:latest --tag doridoridoriand/uuid-api:ruby-$1 -f Dockerfile.$1 .; then
     BUILD_SUCCESS=false
   fi
   if [ "$BUILD_SUCCESS" = false ]; then
