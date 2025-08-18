@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+set -eu
+
+DOCKER_PS_RESULT=$(docker ps 2>/dev/null);
+BUILDX_NAME=boring-primenumber-builder
+
+if [[ $DOCKER_PS_RESULT == *running?* ]]; then
+  echo "ERROR: docker engine not running. Build failed.";
+  exit 1;
+fi
+
+VERSION=0.0.2
+
+BUILDX_ALREADY_EXISTS=$(docker buildx ls 2>&1 | grep ${BUILDX_NAME}) || true;
+
+if [ -n "${BUILDX_ALREADY_EXISTS}" ]; then
+    docker buildx rm ${BUILDX_NAME}
+fi
+
+docker login;
+docker buildx create --name ${BUILDX_NAME}
+docker buildx use ${BUILDX_NAME}
+
+####################################################
+# jammy
+####################################################
+docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/waste_cpu_resource:2.7.8-$VERSION \
+                                                                                        --tag doridoridoriand/waste_cpu_resource:latest -f Dockerfile .
+
+docker buildx rm ${BUILDX_NAME}
