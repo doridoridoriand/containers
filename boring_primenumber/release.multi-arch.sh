@@ -22,9 +22,6 @@ docker login;
 docker buildx create --name ${BUILDX_NAME}
 docker buildx use ${BUILDX_NAME}
 
-####################################################
-# jammy
-####################################################
 docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/waste_cpu_resource:2.7.8-$VERSION \
                                                                                         --tag doridoridoriand/waste_cpu_resource:latest -f Dockerfile .
 
