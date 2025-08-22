@@ -9,8 +9,8 @@ if ! docker info >/dev/null 2>&1; then
   exit 1
 fi
 
-RUBY_VERSION=3.0.1
-VERSION=0.0.1
+RUBY_VERSION=${RUBY_VERSION:-3.0.1}
+VERSION=${VERSION:-0.0.1}
 
 BUILDX_ALREADY_EXISTS=$(docker buildx ls 2>&1 | grep ${BUILDX_NAME}) || true;
 
