@@ -9,6 +9,7 @@ if ! docker info >/dev/null 2>&1; then
   exit 1
 fi
 
+RUBY_VERSION=3.0.0
 VERSION=0.0.2
 
 BUILDX_ALREADY_EXISTS=$(docker buildx ls 2>&1 | grep ${BUILDX_NAME}) || true;
@@ -21,7 +22,7 @@ docker login;
 docker buildx create --name ${BUILDX_NAME}
 docker buildx use ${BUILDX_NAME}
 
-docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/waste_cpu_resource:2.7.8-$VERSION \
-                                                                                        --tag doridoridoriand/waste_cpu_resource:latest -f Dockerfile .
+docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/boring_primenumber:$RUBY_VERSION-$VERSION \
+                                                                                        --tag doridoridoriand/boring_primenumber:latest -f Dockerfile .
 
 docker buildx rm ${BUILDX_NAME}
