@@ -1,13 +1,20 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 set -eu
 
-unixtime=`date +%s`;
+VERSION=${VERSION:-5.6.3}
 
+wget https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-${VERSION}.tgz
+tar zxvf apache-jmeter-${VERSION}.tgz
+
+docker build -t jmeter-standalone:${VERSION} .
+
+docker tag `docker images jmeter-standalone:latest --format "{{.ID}}"` ghcr.io/doridoridoriand/containers/jmeter-standalone:$VERSION;
 docker tag `docker images jmeter-standalone:latest --format "{{.ID}}"` ghcr.io/doridoridoriand/containers/jmeter-standalone:latest;
-docker tag `docker images jmeter-standalone:latest --format "{{.ID}}"` ghcr.io/doridoridoriand/containers/jmeter-standalone:$unixtime;
 
 cat ~/GH_TOKEN.txt | docker login ghcr.io -u doridoridoriand --password-stdin;
 
+docker push ghcr.io/doridoridoriand/containers/jmeter-standalone:$VERSION;
 docker push ghcr.io/doridoridoriand/containers/jmeter-standalone:latest;
-docker push ghcr.io/doridoridoriand/containers/jmeter-standalone:$unixtime;
+
+rm -rf apache-jmeter-*
