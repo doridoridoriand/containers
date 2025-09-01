@@ -7,10 +7,11 @@ VERSION=${VERSION:-5.6.3}
 wget https://dlcdn.apache.org/jmeter/binaries/apache-jmeter-${VERSION}.tgz
 tar zxvf apache-jmeter-${VERSION}.tgz
 
-docker build -t jmeter-standalone:${VERSION} .
-
-docker tag `docker images jmeter-standalone:latest --format "{{.ID}}"` ghcr.io/doridoridoriand/containers/jmeter-standalone:$VERSION;
-docker tag `docker images jmeter-standalone:latest --format "{{.ID}}"` ghcr.io/doridoridoriand/containers/jmeter-standalone:latest;
+docker build \
+  -t jmeter-standalone:${VERSION} \
+  -t ghcr.io/doridoridoriand/containers/jmeter-standalone:${VERSION} \
+  -t ghcr.io/doridoridoriand/containers/jmeter-standalone:latest \
+  .
 
 cat ~/GH_TOKEN.txt | docker login ghcr.io -u doridoridoriand --password-stdin;
 
