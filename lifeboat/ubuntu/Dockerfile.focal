@@ -1,10 +1,34 @@
+FROM ubuntu:focal AS ruby-builder
+
+ENV TZ=Asia/Tokyo
+ENV RUBY_VERSION=3.3.7
+ENV RUBY_SHA256=9c37c3b12288c7aec20ca121ce76845be5bb5d77662a24919651aaf1d12c8628
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get -y install \
+    build-essential gcc g++ make libtool texinfo dpkg-dev pkg-config \
+    libssl-dev zlib1g-dev libyaml-0-2 libyaml-dev wget
+
+RUN cd /tmp && \
+    wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-${RUBY_VERSION}.tar.gz" && \
+    echo "${RUBY_SHA256}  ruby-${RUBY_VERSION}.tar.gz" | sha256sum --check && \
+    tar -zxvf ruby-${RUBY_VERSION}.tar.gz && \
+    cd ruby-${RUBY_VERSION} && \
+    ./configure --prefix=/usr/local && \
+    make install && \
+    cd /tmp && \
+    rm -rf ruby-${RUBY_VERSION}* && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
 FROM ubuntu:focal
 
 ENV TZ=Asia/Tokyo
 
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt -y upgrade && DEBIAN_FRONTEND=noninteractive apt -y install build-essential && DEBIAN_FRONTEND=noninteractive apt -y install tzdata
+COPY --from=ruby-builder /usr/local /usr/local
 
-RUN DEBIAN_FRONTEND=noninteractive apt -y install wget \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y upgrade && DEBIAN_FRONTEND=noninteractive apt-get -y install build-essential && DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget \
     sed \
     net-tools \
     iputils-ping \
@@ -29,7 +53,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt -y install wget \
     mysql-client \
     postgresql-client \
     redis \
-    cowsay
+    cowsay \
+    libssl1.1 \
+    zlib1g \
+    libyaml-0-2
 
 ENV GO_VERSION=1.23.9
 RUN echo "GO_VERSION: $GO_VERSION" && \
@@ -50,8 +77,3 @@ RUN echo "GO_VERSION: $GO_VERSION" && \
     tar -C /usr/local/src -xzf go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
     ln -s /usr/local/src/go/bin/go /usr/local/bin/go && \
     rm go${GO_VERSION}.linux-${BUILDARCH}.tar.gz
-
-RUN apt-get update && apt-get -y upgrade && apt-get -y install build-essential gcc g++ make libtool texinfo dpkg-dev pkg-config && \
-    apt-get -y install libssl-dev zlib1g-dev libyaml-0-2 libyaml-dev && \
-    cd /tmp && rm -rf ruby && wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.7.tar.gz" && tar -zxvf ruby-3.3.7.tar.gz && \
-    cd ruby-3.3.7 && ./configure && make install
