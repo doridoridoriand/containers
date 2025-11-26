@@ -9,9 +9,10 @@ RUN dnf -y update && \
     dnf -y install mysql postgresql ruby-devel && \
     dnf clean all
 
-RUN cd /tmp && wget http://download.redis.io/redis-stable.tar.gz \
-      && tar xvzf redis-stable.tar.gz \
-      && cd redis-stable \
+RUN cd /tmp && wget http://download.redis.io/releases/redis-6.2.5.tar.gz \
+      && tar xvzf redis-6.2.5.tar.gz \
+      && cd redis-6.2.5 \
+      && make distclean \
       && make \
       && cp src/redis-cli /usr/local/bin/ \
       && chmod 755 /usr/local/bin/redis-cli
