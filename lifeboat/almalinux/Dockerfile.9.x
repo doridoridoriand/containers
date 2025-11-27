@@ -10,9 +10,9 @@ RUN dnf -y distro-sync && \
     dnf -y install mysql postgresql && \
     dnf clean all
 
-#RUN wget http://download.redis.io/redis-stable.tar.gz \
-#      && tar xvzf redis-stable.tar.gz \
-#      && cd redis-stable \
+#RUN wget http://download.redis.io/releases/redis-6.2.5.tar.gz \
+#      && tar xvzf redis-6.2.5.tar.gz \
+#      && cd redis-6.2.5 \
 #      && make distclean \
 #      && make \
 #      && cp src/redis-cli /usr/local/bin/ \
