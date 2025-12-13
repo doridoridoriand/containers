@@ -1,0 +1,80 @@
+FROM opensuse/tumbleweed AS ruby-builder
+
+ENV TZ=Asia/Tokyo
+ENV RUBY_VERSION=3.3.9
+ENV RUBY_SHA256=d1991690a4e17233ec6b3c7844c1e1245c0adce3e00d713551d0458467b727b1
+
+RUN zypper refresh && \
+    zypper -n install -t pattern devel_basis && \
+    zypper -n install gcc gcc-c++ make libtool texinfo pkg-config \
+    libopenssl-devel zlib-devel libyaml-devel wget tar gzip
+
+RUN cd /tmp && \
+    wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-${RUBY_VERSION}.tar.gz" && \
+    echo "${RUBY_SHA256}  ruby-${RUBY_VERSION}.tar.gz" | sha256sum --check && \
+    tar -zxvf ruby-${RUBY_VERSION}.tar.gz && \
+    cd ruby-${RUBY_VERSION} && \
+    ./configure --prefix=/usr/local && \
+    make install && \
+    cd /tmp && \
+    rm -rf ruby-${RUBY_VERSION}* && \
+    zypper clean --all
+
+FROM opensuse/tumbleweed
+
+ENV TZ=Asia/Tokyo
+
+COPY --from=ruby-builder /usr/local /usr/local
+
+RUN zypper refresh && \
+    zypper -n update && \
+    zypper -n install -t pattern devel_basis && \
+    zypper -n install timezone
+
+RUN zypper -n install wget \
+    sed \
+    net-tools \
+    iputils \
+    traceroute \
+    lsof \
+    strace \
+    man \
+    tree \
+    sysstat \
+    vim \
+    zsh \
+    tcpdump \
+    git \
+    tmux \
+    jq \
+    htop \
+    curl \
+    bind-utils \
+    postgresql \
+    mariadb-client \
+    postgresql-client \
+    redis \
+    cowsay \
+    libopenssl3 \
+    libz1 \
+    libyaml-0-2
+
+ENV GO_VERSION=1.24.0
+RUN echo "GO_VERSION: $GO_VERSION" && \
+    ARCH=$(arch) && \
+    if [ "$ARCH" = "x86_64" ]; then \
+        BUILDARCH="amd64"; \
+    elif [ "$ARCH" = "aarch64" ]; then \
+        BUILDARCH="arm64"; \
+    elif [ "$ARCH" = "ppc64le" ]; then \
+        BUILDARCH="ppc64le"; \
+    elif [ "$ARCH" = "s390x" ]; then \
+        BUILDARCH="s390x"; \
+    else \
+        echo "Unsupported architecture: $ARCH" && \
+        exit 1; \
+    fi && \
+    wget https://go.dev/dl/go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
+    tar -C /usr/local/src -xzf go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
+    ln -s /usr/local/src/go/bin/go /usr/local/bin/go && \
+    rm go${GO_VERSION}.linux-${BUILDARCH}.tar.gz
