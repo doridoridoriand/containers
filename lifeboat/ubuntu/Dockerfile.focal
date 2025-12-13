@@ -1,8 +1,8 @@
 FROM ubuntu:focal AS ruby-builder
 
 ENV TZ=Asia/Tokyo
-ENV RUBY_VERSION=3.3.7
-ENV RUBY_SHA256=9c37c3b12288c7aec20ca121ce76845be5bb5d77662a24919651aaf1d12c8628
+ENV RUBY_VERSION=3.3.10
+ENV RUBY_SHA256=b555baa467a306cfc8e6c6ed24d0d27b27e9a1bed1d91d95509859eac6b0e928
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y install \
@@ -58,7 +58,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget \
     zlib1g \
     libyaml-0-2
 
-ENV GO_VERSION=1.23.9
+ENV GO_VERSION=1.24.11
 RUN echo "GO_VERSION: $GO_VERSION" && \
     ARCH=$(arch) && \
     if [ "$ARCH" = "x86_64" ]; then \

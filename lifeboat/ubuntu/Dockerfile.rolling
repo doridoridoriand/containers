@@ -1,8 +1,8 @@
 FROM ubuntu:rolling AS ruby-builder
 
 ENV TZ=Asia/Tokyo
-ENV RUBY_VERSION=3.3.9
-ENV RUBY_SHA256=d1991690a4e17233ec6b3c7844c1e1245c0adce3e00d713551d0458467b727b1
+ENV RUBY_VERSION=3.3.10
+ENV RUBY_SHA256=b555baa467a306cfc8e6c6ed24d0d27b27e9a1bed1d91d95509859eac6b0e928
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y install \
@@ -57,7 +57,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget \
     zlib1g \
     libyaml-0-2
 
-ENV GO_VERSION=1.24.0
+ENV GO_VERSION=1.24.11
 RUN echo "GO_VERSION: $GO_VERSION" && \
     ARCH=$(arch) && \
     if [ "$ARCH" = "x86_64" ]; then \
