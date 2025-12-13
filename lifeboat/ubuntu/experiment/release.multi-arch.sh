@@ -1,13 +1,13 @@
 #!/bin/bash
 
-DOCKER_PS_RESULT=`docker ps 2>&1 > /dev/null`;
+DOCKER_PS_RESULT=$(docker ps 2>&1 > /dev/null);
 
 if [[ $DOCKER_PS_RESULT == *running?* ]]; then
   echo "ERROR: docker engine not running. Build failed." >&2;
   exit 1;
 fi
 
-unixtime=`date +%s`;
+unixtime=$(date +%s);
 
 sudo docker buildx rm lifeboat-builder
 
