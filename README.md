@@ -18,6 +18,9 @@ Container images are available on GitHub Packages and Docker Hub.
     - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/295591548?tag=focal-latest)
     - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/focal-latest/images/sha256-a359c545d6247ecbcf8055bd9e9226660bb2a992be127a247e4b7661ce30a3e2)
 - [Almalinux system container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-almalinux) (Available on only GHCR)
+- openSUSE system container
+  - Leap (Stable)
+  - Tumbleweed (Rolling)
 - [Apache JMeter container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Fjmeter-standalone/143931614?tag=latest) (Available on only GHCR)
 
 ## Registries
