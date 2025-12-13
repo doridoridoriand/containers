@@ -2,6 +2,7 @@
 
 # Dependencies
 - Ruby 2.6.3
+- Python >= 3.7
 - Docker >= 18.6
 
 
@@ -27,7 +28,18 @@ $ docker build -t uuid-api-ruby ./ruby
 
 ## docker container execution
 ```
-$ docker run -it uuid-api-ruby
+$ docker run -p 3000:3000 uuid-api-ruby
+```
+
+# Execute with docker (Python)
+## docker build
+```
+$ docker build -t uuid-api-python ./python
+```
+
+## docker container execution
+```
+$ docker run -p 3000:3000 uuid-api-python
 ```
 
 If you not want to build container at local environment, you can pull the image from dockerhub.
