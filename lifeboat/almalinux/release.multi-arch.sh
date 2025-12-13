@@ -2,14 +2,14 @@
 
 set -eu
 
-DOCKER_PS_RESULT=`docker ps 2>&1 > /dev/null`;
+DOCKER_PS_RESULT=$(docker ps 2>&1 > /dev/null);
 
 if [[ $DOCKER_PS_RESULT == *running?* ]]; then
   echo 'ERROR: docker engine not running. Build failed.' >&2;
   exit 1;
 fi
 
-unixtime=`date +%s`;
+unixtime=$(date +%s);
 
 BUILDX_ALREADY_EXISTS=$(docker buildx ls 2>&1 | grep ${BUILDX_NAME}) || true;
 

@@ -15,7 +15,7 @@ build_with_tag() {
     exit 1;
   fi
 
-  GH_TOKEN=`cat ~/GH_TOKEN.txt`
+  GH_TOKEN=$(cat ~/GH_TOKEN.txt)
   docker login;
   if ! echo $GH_TOKEN | docker login ghcr.io -u doridoridoriand --password-stdin; then
     echo "ERROR: Docker login failed." >&2;
