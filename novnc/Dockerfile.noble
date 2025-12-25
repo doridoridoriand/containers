@@ -1,0 +1,7 @@
+FROM doridoridoriand/lifeboat-ubuntu:noble-latest
+
+ENV TZ=Asia/Tokyo
+
+RUN apt-get update && apt-get -y upgrade && apt-get -y install novnc
+
+CMD ["novnc", "--listen", "6081", "--vnc", "localhost:5901"]
