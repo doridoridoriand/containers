@@ -9,6 +9,7 @@ if [[ $DOCKER_PS_RESULT == *running?* ]]; then
   exit 1;
 fi
 
+BUILDX_NAME=lifeboat-almalinux-builder
 unixtime=$(date +%s);
 
 BUILDX_ALREADY_EXISTS=$(docker buildx ls 2>&1 | grep ${BUILDX_NAME}) || true;
@@ -19,8 +20,8 @@ fi
 
 docker login;
 cat ~/GH_TOKEN.txt | docker login ghcr.io -u doridoridoriand --password-stdin;
-docker buildx create --name lifeboat-builder
-docker buildx use lifeboat-builder
+docker buildx create --name ${BUILDX_NAME}
+docker buildx use ${BUILDX_NAME}
 
 ##########################
 # 8.10
@@ -33,15 +34,26 @@ docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/dori
                                                               --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:8.10-latest -f Dockerfile.8.x .
 
 ##########################
-# 9.4
+# 9.5
 ##########################
 ######### Docker Hub #########
-docker buildx build --push --platform=linux/arm64,linux/amd64 --tag doridoridoriand/lifeboat-almalinux:9.4-$unixtime \
-                                                              --tag doridoridoriand/lifeboat-almalinux:9.4-latest \
+docker buildx build --push --platform=linux/arm64,linux/amd64 --tag doridoridoriand/lifeboat-almalinux:9.5-$unixtime \
+                                                              --tag doridoridoriand/lifeboat-almalinux:9.5-latest \
                                                               --tag doridoridoriand/lifeboat-almalinux:latest -f Dockerfile.9.x .
 ######### GitHub Packages #########
-docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:9.4-$unixtime \
-                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:9.4-latest \
+docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:9.5-$unixtime \
+                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:9.5-latest \
                                                               --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:latest -f Dockerfile.9.x .
 
-docker buildx rm lifeboat-builder
+##########################
+# 10.1
+##########################
+######### Docker Hub #########
+docker buildx build --push --platform=linux/arm64,linux/amd64 --tag doridoridoriand/lifeboat-almalinux:10.1-$unixtime \
+                                                              --tag doridoridoriand/lifeboat-almalinux:10.1-latest \
+                                                              --tag doridoridoriand/lifeboat-almalinux:latest -f Dockerfile.10.x .
+######### GitHub Packages #########
+docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:10.1-$unixtime \
+                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:10.1-latest \
+                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:latest -f Dockerfile.10.x .
+docker buildx rm ${BUILDX_NAME}
