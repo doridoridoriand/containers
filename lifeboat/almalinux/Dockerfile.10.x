@@ -1,11 +1,11 @@
-FROM almalinux:8.10
+FROM almalinux:10.1
 
 RUN dnf -y distro-sync && \
     dnf -y update && \
     dnf -y groupinstall "Development Tools" && \
-    dnf -y install wget openssl openssl-devel readline readline-devel zlib zlib-devel gcc sed net-tools iputils traceroute lsof strace bind-utils man tree mailx sysstat dstat mlocate vim zsh tcpdump git tmux jq libyaml && \
+    dnf -y install wget openssl openssl-devel readline readline-devel zlib zlib-devel gcc sed net-tools iputils traceroute lsof strace bind-utils man tree s-nail sysstat dstat mlocate vim zsh tcpdump git tmux jq libyaml && \
     dnf install -y --allowerasing curl && \
-    dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+    dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm && \
     dnf -y update && \
     dnf install -y htop redis cowsay && \
     dnf -y install mysql postgresql && \
