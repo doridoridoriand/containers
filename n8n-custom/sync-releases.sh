@@ -60,7 +60,19 @@ version_ge() {
 }
 
 root_tag_exists() {
-  docker manifest inspect "${GHCR_IMAGE}:root-$1" >/dev/null 2>&1
+  local image_ref="${GHCR_IMAGE}:root-$1"
+  local inspect_output
+
+  if inspect_output=$(docker manifest inspect "${image_ref}" 2>&1); then
+    return 0
+  fi
+
+  if [[ "${inspect_output}" == *"no such manifest"* ]] || [[ "${inspect_output}" == *"manifest unknown"* ]]; then
+    return 1
+  fi
+
+  printf '%s\n' "${inspect_output}" >&2
+  die "Failed to inspect ${image_ref}"
 }
 
 parse_args() {
@@ -206,6 +218,8 @@ echo "Latest upstream version: ${LATEST_UPSTREAM_VERSION}"
 
 if [[ "${#MISSING_VERSIONS[@]}" -eq 0 ]]; then
   echo "Nothing to build"
+  refresh_latest_tag "${LATEST_UPSTREAM_VERSION}"
+  echo "Complete"
   exit 0
 fi
 
@@ -217,7 +231,10 @@ for version in "${MISSING_VERSIONS[@]}"; do
   fi
 
   echo "START ${version} $(date '+%F %T %z')"
-  if N8N_VERSION="${version}" "${RELEASE_SCRIPT_DEFAULT}" > "${LOG_DIR}/${version}.log" 2>&1; then
+  if (
+    cd "${SCRIPT_DIR}"
+    N8N_VERSION="${version}" "${RELEASE_SCRIPT_DEFAULT}"
+  ) > "${LOG_DIR}/${version}.log" 2>&1; then
     echo "DONE ${version} $(date '+%F %T %z')"
     printf '%s\tOK\t%s\n' "${version}" "${LOG_DIR}/${version}.log" >> "${SUMMARY_FILE}"
   else

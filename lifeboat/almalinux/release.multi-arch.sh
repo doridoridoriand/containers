@@ -38,12 +38,10 @@ docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/dori
 ##########################
 ######### Docker Hub #########
 docker buildx build --push --platform=linux/arm64,linux/amd64 --tag doridoridoriand/lifeboat-almalinux:9.5-$unixtime \
-                                                              --tag doridoridoriand/lifeboat-almalinux:9.5-latest \
-                                                              --tag doridoridoriand/lifeboat-almalinux:latest -f Dockerfile.9.x .
+                                                              --tag doridoridoriand/lifeboat-almalinux:9.5-latest -f Dockerfile.9.x .
 ######### GitHub Packages #########
 docker buildx build --push --platform=linux/arm64,linux/amd64 --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:9.5-$unixtime \
-                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:9.5-latest \
-                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:latest -f Dockerfile.9.x .
+                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-almalinux:9.5-latest -f Dockerfile.9.x .
 
 ##########################
 # 10.1

@@ -3,7 +3,7 @@ SHELL=/bin/bash
 test-build:
 	docker build -t almalinux-lifeboat:8.9 -f Dockerfile.8.x .
 	docker build -t almalinux-lifeboat:9.3 -f Dockerfile.9.x .
-	docker build -t almalinux-lifeboat:10.0 -f Dockerfile.10.x .
+	docker build -t almalinux-lifeboat:10.1 -f Dockerfile.10.x .
 test-buildx:
 	docker buildx create --name lifeboat-builder
 	docker buildx use lifeboat-builder
