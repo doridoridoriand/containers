@@ -2,12 +2,10 @@
 
 set -eu
 
-DOCKER_PS_RESULT=$(docker ps 2>&1 > /dev/null);
-
-if [[ $DOCKER_PS_RESULT == *running?* ]]; then
+docker ps >/dev/null 2>&1 || {
   echo 'ERROR: docker engine not running. Build failed.' >&2;
   exit 1;
-fi
+}
 
 BUILDX_NAME=lifeboat-almalinux-builder
 unixtime=$(date +%s);

@@ -7,7 +7,7 @@ docker-hub-auth-check:
 	if [ ! -f "$$HOME/.docker/config.json" ]; then \
 		exit 0; \
 	fi; \
-	helper=$$(sed -n 's/.*"credsStore"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$$HOME/.docker/config.json" | head -n 1); \
+	helper=$$(sed -n '/"credsStore"[[:space:]]*:/ { s/.*"credsStore"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p; q; }' "$$HOME/.docker/config.json"); \
 	if [ -z "$$helper" ]; then \
 		exit 0; \
 	fi; \

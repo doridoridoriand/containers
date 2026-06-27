@@ -52,11 +52,41 @@ is_exact_semver() {
 }
 
 version_le() {
-  [[ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n 1)" == "$1" ]]
+  local lhs_major lhs_minor lhs_patch rhs_major rhs_minor rhs_patch
+
+  IFS=. read -r lhs_major lhs_minor lhs_patch <<< "$1"
+  IFS=. read -r rhs_major rhs_minor rhs_patch <<< "$2"
+
+  if (( 10#${lhs_major} != 10#${rhs_major} )); then
+    (( 10#${lhs_major} < 10#${rhs_major} ))
+    return
+  fi
+
+  if (( 10#${lhs_minor} != 10#${rhs_minor} )); then
+    (( 10#${lhs_minor} < 10#${rhs_minor} ))
+    return
+  fi
+
+  (( 10#${lhs_patch} <= 10#${rhs_patch} ))
 }
 
 version_ge() {
-  [[ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n 1)" == "$2" ]]
+  local lhs_major lhs_minor lhs_patch rhs_major rhs_minor rhs_patch
+
+  IFS=. read -r lhs_major lhs_minor lhs_patch <<< "$1"
+  IFS=. read -r rhs_major rhs_minor rhs_patch <<< "$2"
+
+  if (( 10#${lhs_major} != 10#${rhs_major} )); then
+    (( 10#${lhs_major} > 10#${rhs_major} ))
+    return
+  fi
+
+  if (( 10#${lhs_minor} != 10#${rhs_minor} )); then
+    (( 10#${lhs_minor} > 10#${rhs_minor} ))
+    return
+  fi
+
+  (( 10#${lhs_patch} >= 10#${rhs_patch} ))
 }
 
 root_tag_exists() {
@@ -69,6 +99,10 @@ root_tag_exists() {
 
   if [[ "${inspect_output}" == *"no such manifest"* ]] || [[ "${inspect_output}" == *"manifest unknown"* ]]; then
     return 1
+  fi
+
+  if [[ "${inspect_output}" == *"unauthorized"* ]] || [[ "${inspect_output}" == *"authentication required"* ]] || [[ "${inspect_output}" == *"requested access to the resource is denied"* ]]; then
+    die "Failed to inspect ${image_ref}: authentication required; run 'docker login ghcr.io' and retry"
   fi
 
   printf '%s\n' "${inspect_output}" >&2
@@ -119,14 +153,14 @@ fetch_upstream_versions() {
   while :; do
     response=$(curl -fsSL "https://hub.docker.com/v2/repositories/${UPSTREAM_REPO}/tags?page_size=100&page=${page}")
 
-    jq -r '.results[].name' <<<"${response}"
+    jq -r '.results[].name | select(test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))' <<<"${response}"
 
     next=$(jq -r '.next // empty' <<<"${response}")
     [[ -n "${next}" ]] || break
     page=$((page + 1))
   done \
-    | rg '^[0-9]+\.[0-9]+\.[0-9]+$' \
-    | sort -uV \
+    | sort -t. -k1,1n -k2,2n -k3,3n \
+    | awk '!seen[$0]++' \
     | while read -r version; do
         version_ge "${version}" "${START_VERSION}" || continue
 
@@ -169,7 +203,7 @@ refresh_latest_tag() {
 
 parse_args "$@"
 
-require_cmd bash curl jq rg sort docker
+require_cmd bash curl jq sort awk docker
 is_exact_semver "${START_VERSION}" || die "Invalid --start-version: ${START_VERSION}"
 if [[ -n "${END_VERSION}" ]]; then
   is_exact_semver "${END_VERSION}" || die "Invalid --end-version: ${END_VERSION}"
