@@ -7,12 +7,12 @@ ENV RUBY_SHA256=b555baa467a306cfc8e6c6ed24d0d27b27e9a1bed1d91d95509859eac6b0e928
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y install \
     build-essential gcc g++ make libtool texinfo dpkg-dev pkg-config \
-    libssl-dev zlib1g-dev libyaml-0-2 libyaml-dev wget
+    libssl-dev zlib1g-dev libyaml-0-2 libyaml-dev wget libarchive-tools
 
 RUN cd /tmp && \
     wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-${RUBY_VERSION}.tar.gz" && \
     echo "${RUBY_SHA256}  ruby-${RUBY_VERSION}.tar.gz" | sha256sum --check && \
-    tar -zxvf ruby-${RUBY_VERSION}.tar.gz && \
+    bsdtar -zxf ruby-${RUBY_VERSION}.tar.gz && \
     cd ruby-${RUBY_VERSION} && \
     ./configure --prefix=/usr/local && \
     make install && \
@@ -23,6 +23,8 @@ RUN cd /tmp && \
 FROM ubuntu:rolling
 
 ENV TZ=Asia/Tokyo
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 COPY --from=ruby-builder /usr/local /usr/local
 
@@ -35,10 +37,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget \
     traceroute \
     lsof \
     strace \
-    man \
+    man-db \
     tree \
     sysstat \
-    dstat \
+    pcp \
     vim \
     zsh \
     tcpdump \
@@ -53,7 +55,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget \
     postgresql-client \
     redis \
     cowsay \
-    libssl3 \
+    libarchive-tools \
+    libssl3t64 \
     zlib1g \
     libyaml-0-2
 
@@ -73,6 +76,6 @@ RUN echo "GO_VERSION: $GO_VERSION" && \
         exit 1; \
     fi && \
     wget https://go.dev/dl/go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
-    tar -C /usr/local/src -xzf go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
+    bsdtar -C /usr/local/src -zxf go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
     ln -s /usr/local/src/go/bin/go /usr/local/bin/go && \
     rm go${GO_VERSION}.linux-${BUILDARCH}.tar.gz
