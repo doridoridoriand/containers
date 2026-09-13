@@ -4,7 +4,7 @@ set -euo pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 RELEASE_SCRIPT_DEFAULT="${SCRIPT_DIR}/release.sh"
-START_VERSION="1.107.0"
+START_VERSION="1.123.27"
 END_VERSION=""
 DRY_RUN=0
 REFRESH_LATEST=1
