@@ -51,6 +51,8 @@ Notes:
   - Only exact semver tags like 0.34.2 are considered.
   - Suffix tags such as -rc0, -rocm, and v-prefixed tags are ignored.
   - Existing ghcr tags are skipped.
+  - :latest is only repointed when the mirrored range includes the global
+    newest stable; bounded syncs (e.g. with --end-version) never downgrade it.
   - Requires docker with buildx; run 'docker login ghcr.io' before pushing.
 EOF
 }
@@ -179,6 +181,12 @@ refresh_latest_tag() {
     return
   fi
 
+  if [[ "${latest_version}" != "${GLOBAL_LATEST_VERSION}" ]]; then
+    echo "Skip latest retag: ${latest_version} is not the global latest (${GLOBAL_LATEST_VERSION}); bounded sync would downgrade :latest"
+    printf 'latest\tSKIP\t%s is not global latest (%s)\n' "${latest_version}" "${GLOBAL_LATEST_VERSION}" >> "${SUMMARY_FILE}"
+    return
+  fi
+
   local src="${GHCR_IMAGE}:${latest_version}"
   local dst="${GHCR_IMAGE}:latest"
 
@@ -240,8 +248,6 @@ parse_args() {
 
 parse_args "$@"
 
-require_cmd bash curl jq sort awk docker
-
 if [[ -n "${START_VERSION}" ]]; then
   is_exact_semver "${START_VERSION}" || die "Invalid --start-version: ${START_VERSION}"
 fi
@@ -251,6 +257,8 @@ fi
 if [[ -n "${START_VERSION}" && -n "${END_VERSION}" ]]; then
   version_le "${START_VERSION}" "${END_VERSION}" || die "--start-version must be <= --end-version"
 fi
+
+require_cmd bash curl jq sort awk grep sed tail
 
 if [[ "${LIST_ONLY}" -eq 1 ]]; then
   fetch_upstream_versions \
@@ -268,6 +276,8 @@ if [[ "${LIST_ONLY}" -eq 1 ]]; then
   exit 0
 fi
 
+require_cmd docker
+
 if [[ -n "${LOG_DIR}" ]]; then
   mkdir -p "${LOG_DIR}"
 else
@@ -277,19 +287,25 @@ fi
 VERSIONS_FILE="${LOG_DIR}/versions.txt"
 MISSING_FILE="${LOG_DIR}/missing.txt"
 SUMMARY_FILE="${LOG_DIR}/summary.tsv"
+ALL_VERSIONS_FILE="${LOG_DIR}/all_versions.txt"
 
 fetch_upstream_versions \
   | sort -t. -k1,1n -k2,2n -k3,3n \
-  | awk '!seen[$0]++' \
-  | while read -r version; do
-      if [[ -n "${START_VERSION}" ]]; then
-        version_ge "${version}" "${START_VERSION}" || continue
-      fi
-      if [[ -n "${END_VERSION}" ]]; then
-        version_le "${version}" "${END_VERSION}" || continue
-      fi
-      printf '%s\n' "${version}"
-    done > "${VERSIONS_FILE}"
+  | awk '!seen[$0]++' > "${ALL_VERSIONS_FILE}"
+
+[[ -s "${ALL_VERSIONS_FILE}" ]] || die "No upstream versions found"
+
+GLOBAL_LATEST_VERSION=$(tail -n 1 "${ALL_VERSIONS_FILE}")
+
+while IFS= read -r version; do
+  if [[ -n "${START_VERSION}" ]]; then
+    version_ge "${version}" "${START_VERSION}" || continue
+  fi
+  if [[ -n "${END_VERSION}" ]]; then
+    version_le "${version}" "${END_VERSION}" || continue
+  fi
+  printf '%s\n' "${version}"
+done < "${ALL_VERSIONS_FILE}" > "${VERSIONS_FILE}"
 
 [[ -s "${VERSIONS_FILE}" ]] || die "No upstream versions found in the requested range"
 
