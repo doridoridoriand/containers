@@ -1,8 +1,8 @@
 FROM ubuntu:jammy AS ruby-builder
 
 ENV TZ=Asia/Tokyo
-ENV RUBY_VERSION=3.3.10
-ENV RUBY_SHA256=b555baa467a306cfc8e6c6ed24d0d27b27e9a1bed1d91d95509859eac6b0e928
+ENV RUBY_VERSION=3.3.13
+ENV RUBY_SHA256=4cae72e971bd1cdb20ca87d299111182417c5276c162de8ead0ab0531426cd61
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y install \

@@ -44,9 +44,17 @@ docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/
 docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/lifeboat-ubuntu:noble-$unixtime \
                                                                                         --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:noble-latest \
                                                                                         --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:noble-$unixtime \
+                                                                                        --tag doridoridoriand/lifeboat-ubuntu:noble-latest -f Dockerfile.noble .
+
+####################################################
+# resolute
+####################################################
+docker buildx build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/lifeboat-ubuntu:resolute-$unixtime \
+                                                                                        --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:resolute-latest \
+                                                                                        --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:resolute-$unixtime \
                                                                                         --tag doridoridoriand/lifeboat-ubuntu:latest \
                                                                                         --tag ghcr.io/doridoridoriand/containers/lifeboat-ubuntu:latest \
-                                                                                        --tag doridoridoriand/lifeboat-ubuntu:noble-latest -f Dockerfile.noble .
+                                                                                        --tag doridoridoriand/lifeboat-ubuntu:resolute-latest -f Dockerfile.resolute .
 
 ####################################################
 # rolling
