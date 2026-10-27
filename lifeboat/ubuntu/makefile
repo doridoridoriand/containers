@@ -34,8 +34,8 @@ docker-hub-auth-check:
 test-build: docker-hub-auth-check
 	DOCKER_BUILDKIT=1 docker build --no-cache -t ubuntu-lifeboat:focal-latest -f Dockerfile.focal .
 	DOCKER_BUILDKIT=1 docker build --no-cache -t ubuntu-lifeboat:jammy-latest -f Dockerfile.jammy .
-	DOCKER_BUILDKIT=1 docker build --no-cache -t ubuntu-lifeboat:lunar-latest -f Dockerfile.lunar .
 	DOCKER_BUILDKIT=1 docker build --no-cache -t ubuntu-lifeboat:noble-latest -f Dockerfile.noble .
+	DOCKER_BUILDKIT=1 docker build --no-cache -t ubuntu-lifeboat:resolute-latest -f Dockerfile.resolute .
 	DOCKER_BUILDKIT=1 docker build --no-cache -t ubuntu-lifeboat:rolling-latest -f Dockerfile.rolling .
 
 .PHONY: tag-current-unixtime
