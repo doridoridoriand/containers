@@ -5,6 +5,9 @@ Container images are available on GitHub Packages and Docker Hub.
 
 ## Containers
 - Ubuntu system container
+  - Resolute (26.04)
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu?tag=resolute-latest)
+    - [Docker Hub](https://hub.docker.com/r/doridoridoriand/lifeboat-ubuntu/tags?name=resolute-latest)
   - Noble
     - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/295608419?tag=noble-latest)
     - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/noble-latest/images/sha256-a52561ee78e3e4746a4e89e05ba16f7f2de9e273ccff9d5e227b5689924d692a)
@@ -17,11 +20,30 @@ Container images are available on GitHub Packages and Docker Hub.
   - Focal
     - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-ubuntu/295591548?tag=focal-latest)
     - [Docker Hub](https://hub.docker.com/layers/doridoridoriand/lifeboat-ubuntu/focal-latest/images/sha256-a359c545d6247ecbcf8055bd9e9226660bb2a992be127a247e4b7661ce30a3e2)
-- [Almalinux system container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-almalinux) (Available on only GHCR)
+- AlmaLinux system container
+  - 10.x (latest)
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-almalinux?tag=10.2-latest)
+    - [Docker Hub](https://hub.docker.com/r/doridoridoriand/lifeboat-almalinux/tags?name=10.2-latest)
+  - 9.x
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-almalinux?tag=9.8-latest)
+    - [Docker Hub](https://hub.docker.com/r/doridoridoriand/lifeboat-almalinux/tags?name=9.8-latest)
+  - 8.10
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-almalinux?tag=8.10-latest)
+    - [Docker Hub](https://hub.docker.com/r/doridoridoriand/lifeboat-almalinux/tags?name=8.10-latest)
+- CentOS Stream 10 system container
+  - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-centos?tag=stream10-latest)
+  - [Docker Hub](https://hub.docker.com/r/doridoridoriand/lifeboat-centos/tags?name=stream10-latest)
 - openSUSE system container
-  - Leap (Stable)
+  - Leap 16.0 (Stable)
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-opensuse?tag=leap16-latest)
+    - [Docker Hub](https://hub.docker.com/r/doridoridoriand/lifeboat-opensuse/tags?name=leap16-latest)
+  - Leap 15.6 (EOL legacy, versioned tags only)
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-opensuse?tag=leap15.6-latest)
+    - [Docker Hub](https://hub.docker.com/r/doridoridoriand/lifeboat-opensuse/tags?name=leap15.6-latest)
   - Tumbleweed (Rolling)
-- [Apache JMeter container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Fjmeter-standalone/143931614?tag=latest) (Available on only GHCR)
+    - [GHCR](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Flifeboat-opensuse?tag=tumbleweed-latest)
+    - [Docker Hub](https://hub.docker.com/r/doridoridoriand/lifeboat-opensuse/tags?name=tumbleweed-latest)
+- [Apache JMeter container](https://github.com/doridoridoriand/containers/pkgs/container/containers%2Fjmeter-standalone) (Available on only GHCR)
 
 ## Registries
 

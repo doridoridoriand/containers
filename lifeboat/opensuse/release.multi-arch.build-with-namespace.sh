@@ -23,15 +23,28 @@ cat ~/GH_TOKEN.txt |  docker login ghcr.io -u doridoridoriand --password-stdin;
 docker buildx create --name ${BUILDX_NAME}
 docker buildx use ${BUILDX_NAME}
 ####################################################
-# leap
+# leap 15.6 (EOL legacy, versioned tags only)
 ####################################################
 ######### Docker Hub #########
-nsc build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/lifeboat-opensuse:leap-$unixtime \
-                                                                              --tag doridoridoriand/lifeboat-opensuse:leap-latest -f Dockerfile.leap .
+nsc build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/lifeboat-opensuse:leap15.6-$unixtime \
+                                                                              --tag doridoridoriand/lifeboat-opensuse:leap15.6-latest -f Dockerfile.leap .
 
 ######### GitHub Packages #########
-nsc build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/lifeboat-opensuse:leap-$unixtime \
-                                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-opensuse:leap-latest -f Dockerfile.leap .
+nsc build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/lifeboat-opensuse:leap15.6-$unixtime \
+                                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-opensuse:leap15.6-latest -f Dockerfile.leap .
+
+####################################################
+# leap 16.0 (stable primary)
+####################################################
+######### Docker Hub #########
+nsc build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag doridoridoriand/lifeboat-opensuse:leap16-$unixtime \
+                                                                              --tag doridoridoriand/lifeboat-opensuse:leap16-latest \
+                                                                              --tag doridoridoriand/lifeboat-opensuse:leap-latest -f Dockerfile.leap16 .
+
+######### GitHub Packages #########
+nsc build --push --platform=linux/arm64,linux/amd64,linux/s390x,linux/ppc64le --tag ghcr.io/doridoridoriand/containers/lifeboat-opensuse:leap16-$unixtime \
+                                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-opensuse:leap16-latest \
+                                                                              --tag ghcr.io/doridoridoriand/containers/lifeboat-opensuse:leap-latest -f Dockerfile.leap16 .
 
 
 ####################################################

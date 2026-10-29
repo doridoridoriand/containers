@@ -1,4 +1,4 @@
-FROM almalinux:9.5
+FROM almalinux:9.8
 
 RUN dnf -y distro-sync && \
     dnf -y update && \

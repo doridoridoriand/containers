@@ -2,8 +2,9 @@ SHELL=/bin/bash
 
 .PHONY: test-build
 test-build:
-	docker build --no-cache -t opensuse-lifeboat:leap-latest -f Dockerfile.leap .
-	docker build --no-cache -t opensuse-lifeboat:tumbleweed-latest -f Dockerfile.tumbleweed .
+	docker build --no-cache -t opensuse-lifeboat:leap15.6-latest -f Dockerfile.leap .
+	docker build --no-cache -t opensuse-lifeboat:leap16-latest -t opensuse-lifeboat:leap-latest -f Dockerfile.leap16 .
+	docker build --no-cache -t opensuse-lifeboat:tumbleweed-latest -t opensuse-lifeboat:latest -f Dockerfile.tumbleweed .
 
 .PHONY: tag-current-unixtime
 tag-current-unixtime:
