@@ -10,7 +10,7 @@ test-buildx:
 	docker buildx rm lifeboat-builder
 
 tag-current-unixtime:
-	docker tag `docker images centos-lifeboat:latest --format "{{.ID}}"` centos-lifeboat:`date +%s`
+	docker tag `docker images centos-lifeboat:stream10 --format "{{.ID}}"` centos-lifeboat:`date +%s`
 
 release:
 	bash release.multi-arch.sh
