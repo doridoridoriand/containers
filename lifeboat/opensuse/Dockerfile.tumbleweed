@@ -1,16 +1,16 @@
 FROM opensuse/tumbleweed AS ruby-builder
 
 ENV TZ=Asia/Tokyo
-ENV RUBY_VERSION=3.3.9
-ENV RUBY_SHA256=d1991690a4e17233ec6b3c7844c1e1245c0adce3e00d713551d0458467b727b1
+ENV RUBY_VERSION=3.4.12
+ENV RUBY_SHA256=5e5d85ad93b0adcccbad47733680f4892bd0078e3342437f7babce01c1872479
 
 RUN zypper refresh && \
     zypper -n install -t pattern devel_basis && \
     zypper -n install gcc gcc-c++ make libtool texinfo pkg-config \
-    libopenssl-devel zlib-devel libyaml-devel wget tar gzip
+    libopenssl-devel zlib-ng-compat-devel libyaml-devel wget tar gzip
 
 RUN cd /tmp && \
-    wget "https://cache.ruby-lang.org/pub/ruby/3.3/ruby-${RUBY_VERSION}.tar.gz" && \
+    wget "https://cache.ruby-lang.org/pub/ruby/3.4/ruby-${RUBY_VERSION}.tar.gz" && \
     echo "${RUBY_SHA256}  ruby-${RUBY_VERSION}.tar.gz" | sha256sum --check && \
     tar -zxvf ruby-${RUBY_VERSION}.tar.gz && \
     cd ruby-${RUBY_VERSION} && \
@@ -52,14 +52,13 @@ RUN zypper -n install wget \
     bind-utils \
     postgresql \
     mariadb-client \
-    postgresql-client \
     redis \
     cowsay \
     libopenssl3 \
     libz1 \
     libyaml-0-2
 
-ENV GO_VERSION=1.24.0
+ENV GO_VERSION=1.24.11
 RUN echo "GO_VERSION: $GO_VERSION" && \
     ARCH=$(arch) && \
     if [ "$ARCH" = "x86_64" ]; then \

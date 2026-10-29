@@ -1,4 +1,4 @@
-FROM openjdk:18
+FROM eclipse-temurin:21-jre
 
 COPY apache-jmeter-5.6.3 /apache-jmeter-5.6.3
 

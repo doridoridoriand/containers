@@ -1,21 +1,39 @@
-FROM centos:8
+FROM quay.io/centos/centos:stream10 AS ruby-builder
 
-RUN dnf -y update && \
-    dnf -y groupinstall "Development Tools" && \
-    dnf -y install wget openssl openssl-devel readline readline-devel zlib zlib-devel sed net-tools traceroute lsof strace bind-utils man tree mailx sysstat dstat mlocate vim zsh tcpdump git tmux jq && \
-    dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+ENV TZ=Asia/Tokyo
+ENV RUBY_VERSION=3.4.12
+ENV RUBY_SHA256=5e5d85ad93b0adcccbad47733680f4892bd0078e3342437f7babce01c1872479
+
+RUN dnf -y distro-sync && \
     dnf -y update && \
-    dnf install -y htop && \
-    dnf -y install mysql postgresql ruby-devel && \
+    dnf -y install dnf-plugins-core && \
+    dnf -y config-manager --set-enabled crb && \
+    dnf -y install gcc make wget openssl openssl-devel readline readline-devel zlib zlib-devel libyaml-devel tar gzip
+
+RUN cd /tmp && \
+    wget "https://cache.ruby-lang.org/pub/ruby/3.4/ruby-${RUBY_VERSION}.tar.gz" && \
+    echo "${RUBY_SHA256}  ruby-${RUBY_VERSION}.tar.gz" | sha256sum --check && \
+    tar -zxvf ruby-${RUBY_VERSION}.tar.gz && \
+    cd ruby-${RUBY_VERSION} && \
+    ./configure --prefix=/usr/local && \
+    make install && \
+    cd /tmp && \
+    rm -rf ruby-${RUBY_VERSION}* && \
     dnf clean all
 
-RUN cd /tmp && wget http://download.redis.io/releases/redis-6.2.5.tar.gz \
-      && tar xvzf redis-6.2.5.tar.gz \
-      && cd redis-6.2.5 \
-      && make distclean \
-      && make \
-      && cp src/redis-cli /usr/local/bin/ \
-      && chmod 755 /usr/local/bin/redis-cli
+FROM quay.io/centos/centos:stream10
 
-RUN wget https://cache.ruby-lang.org/pub/ruby/3.0/ruby-3.0.0.tar.gz && tar -zxvf ruby-3.0.0.tar.gz
-RUN cd ruby-3.0.0 && ./configure && make && make install
+ENV TZ=Asia/Tokyo
+
+COPY --from=ruby-builder /usr/local /usr/local
+
+RUN dnf -y distro-sync && \
+    dnf -y update && \
+    dnf -y groupinstall "Development Tools" && \
+    dnf -y install wget openssl openssl-devel readline readline-devel zlib zlib-devel gcc sed net-tools iputils traceroute lsof strace bind-utils man tree s-nail sysstat dstat plocate vim zsh tcpdump git tmux jq libyaml && \
+    dnf install -y --allowerasing curl && \
+    dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm && \
+    dnf -y update && \
+    dnf install -y htop valkey cowsay && \
+    dnf -y install mariadb postgresql && \
+    dnf clean all

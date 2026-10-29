@@ -1,14 +1,14 @@
-FROM almalinux:10.1
+FROM almalinux:10.2
 
 RUN dnf -y distro-sync && \
     dnf -y update && \
     dnf -y groupinstall "Development Tools" && \
-    dnf -y install wget openssl openssl-devel readline readline-devel zlib zlib-devel gcc sed net-tools iputils traceroute lsof strace bind-utils man tree s-nail sysstat dstat mlocate vim zsh tcpdump git tmux jq libyaml && \
+    dnf -y install wget openssl openssl-devel readline readline-devel zlib zlib-devel gcc sed net-tools iputils traceroute lsof strace bind-utils man tree s-nail sysstat dstat plocate vim zsh tcpdump git tmux jq libyaml && \
     dnf install -y --allowerasing curl && \
     dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm && \
     dnf -y update && \
-    dnf install -y htop redis cowsay && \
-    dnf -y install mysql postgresql && \
+    dnf install -y htop valkey cowsay && \
+    dnf -y install mariadb postgresql && \
     dnf clean all
 
 #RUN wget http://download.redis.io/releases/redis-6.2.5.tar.gz \
