@@ -6,6 +6,7 @@ ENV RUBY_SHA256=5e5d85ad93b0adcccbad47733680f4892bd0078e3342437f7babce01c1872479
 
 RUN zypper refresh && \
     zypper -n install -t pattern devel_basis && \
+    { zypper -n remove busybox-gzip || true; } && \
     zypper -n install gcc gcc-c++ make libtool texinfo pkg-config \
     libopenssl-devel zlib-ng-compat-devel libyaml-devel wget tar gzip
 
