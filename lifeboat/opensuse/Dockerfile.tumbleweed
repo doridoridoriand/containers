@@ -8,12 +8,12 @@ RUN zypper refresh && \
     zypper -n install -t pattern devel_basis && \
     { zypper -n remove busybox-gzip || true; } && \
     zypper -n install gcc gcc-c++ make libtool texinfo pkg-config \
-    libopenssl-devel zlib-ng-compat-devel libyaml-devel wget tar gzip
+    libopenssl-devel zlib-ng-compat-devel libyaml-devel wget tar gzip python3
 
 RUN cd /tmp && \
     wget "https://cache.ruby-lang.org/pub/ruby/3.4/ruby-${RUBY_VERSION}.tar.gz" && \
     echo "${RUBY_SHA256}  ruby-${RUBY_VERSION}.tar.gz" | sha256sum --check && \
-    tar -zxvf ruby-${RUBY_VERSION}.tar.gz && \
+    python3 -c "import tarfile; tarfile.open('ruby-${RUBY_VERSION}.tar.gz').extractall(filter='fully_trusted')" && \
     cd ruby-${RUBY_VERSION} && \
     ./configure --prefix=/usr/local && \
     make install && \
@@ -57,7 +57,8 @@ RUN zypper -n install wget \
     cowsay \
     libopenssl3 \
     libz1 \
-    libyaml-0-2
+    libyaml-0-2 \
+    python3
 
 ENV GO_VERSION=1.24.11
 RUN echo "GO_VERSION: $GO_VERSION" && \
@@ -75,6 +76,6 @@ RUN echo "GO_VERSION: $GO_VERSION" && \
         exit 1; \
     fi && \
     wget https://go.dev/dl/go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
-    tar -C /usr/local/src -xzf go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
+    python3 -c "import tarfile; tarfile.open('go${GO_VERSION}.linux-${BUILDARCH}.tar.gz').extractall(path='/usr/local/src', filter='fully_trusted')" && \
     ln -s /usr/local/src/go/bin/go /usr/local/bin/go && \
     rm go${GO_VERSION}.linux-${BUILDARCH}.tar.gz
