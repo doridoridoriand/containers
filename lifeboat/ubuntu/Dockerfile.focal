@@ -1,8 +1,8 @@
 FROM ubuntu:focal AS ruby-builder
 
 ENV TZ=Asia/Tokyo
-ENV RUBY_VERSION=3.3.13
-ENV RUBY_SHA256=4cae72e971bd1cdb20ca87d299111182417c5276c162de8ead0ab0531426cd61
+ENV RUBY_VERSION=3.3.14
+ENV RUBY_SHA256=d0438ee291b0cacaf97c7a71df4c939d7f3265c8c2d1b8ffe27311f71fc680b0
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y install \

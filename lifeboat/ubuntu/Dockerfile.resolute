@@ -1,18 +1,24 @@
 FROM ubuntu:resolute AS ruby-builder
 
 ENV TZ=Asia/Tokyo
-ENV RUBY_VERSION=3.4.12
-ENV RUBY_SHA256=5e5d85ad93b0adcccbad47733680f4892bd0078e3342437f7babce01c1872479
+ENV RUBY_VERSION=3.4.13
+ENV RUBY_SHA256=d0d3bf3dd8c224a3c3b7ecd816a0f1b2cbcf4f87b5afcbdbe91d3fef177f351a
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y install \
     build-essential gcc g++ make libtool texinfo dpkg-dev pkg-config \
-    libssl-dev zlib1g-dev libyaml-0-2 libyaml-dev wget
+    libssl-dev zlib1g-dev libyaml-0-2 libyaml-dev wget \
+    libarchive-tools
 
+# NOTE: Use bsdtar instead of GNU tar for extraction. The GNU tar in this
+# release issues the openat2 syscall, which is not implemented by the
+# Rosetta/qemu amd64 emulation used for cross-arch builds (fails with
+# "Function not implemented"). LC_ALL=C.UTF-8 is required for bsdtar to
+# handle non-ASCII pathnames in archives (Go source archives contain them).
 RUN cd /tmp && \
     wget "https://cache.ruby-lang.org/pub/ruby/3.4/ruby-${RUBY_VERSION}.tar.gz" && \
     echo "${RUBY_SHA256}  ruby-${RUBY_VERSION}.tar.gz" | sha256sum --check && \
-    tar -zxvf ruby-${RUBY_VERSION}.tar.gz && \
+    LC_ALL=C.UTF-8 bsdtar -xf ruby-${RUBY_VERSION}.tar.gz && \
     cd ruby-${RUBY_VERSION} && \
     ./configure --prefix=/usr/local && \
     make install && \
@@ -56,7 +62,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install wget \
     cowsay \
     libssl3 \
     zlib1g \
-    libyaml-0-2
+    libyaml-0-2 \
+    libarchive-tools
 
 ENV GO_VERSION=1.24.11
 RUN echo "GO_VERSION: $GO_VERSION" && \
@@ -74,6 +81,6 @@ RUN echo "GO_VERSION: $GO_VERSION" && \
         exit 1; \
     fi && \
     wget https://go.dev/dl/go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
-    tar -C /usr/local/src -xzf go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
+    LC_ALL=C.UTF-8 bsdtar -C /usr/local/src -xf go${GO_VERSION}.linux-${BUILDARCH}.tar.gz && \
     ln -s /usr/local/src/go/bin/go /usr/local/bin/go && \
     rm go${GO_VERSION}.linux-${BUILDARCH}.tar.gz
