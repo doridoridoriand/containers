@@ -1,8 +1,8 @@
 FROM ubuntu:resolute AS ruby-builder
 
 ENV TZ=Asia/Tokyo
-ENV RUBY_VERSION=3.4.12
-ENV RUBY_SHA256=5e5d85ad93b0adcccbad47733680f4892bd0078e3342437f7babce01c1872479
+ENV RUBY_VERSION=3.4.13
+ENV RUBY_SHA256=d0d3bf3dd8c224a3c3b7ecd816a0f1b2cbcf4f87b5afcbdbe91d3fef177f351a
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -y install \
